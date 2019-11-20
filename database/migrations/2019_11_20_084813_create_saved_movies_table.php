@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateSavedMoviesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('saved_movies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('poster_id');
-            $table->string('comment_content');
+            $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('movie_id');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('saved_movies');
     }
 }

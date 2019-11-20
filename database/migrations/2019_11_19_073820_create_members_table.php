@@ -23,7 +23,7 @@ class CreateMembersTable extends Migration
             $table->date('birthday');
             $table->string('profile_picture');
             
-            $table->bigInteger('movie_id')->unsigned();
+            $table->bigInteger('saved_movie_id')->unsigned();
             $table->foreign('movie_id')->references('id')->
                 on('movies')->onDelete('cascade');
             $table->timestamps();

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     //
-    public function movies(){
-        return $this->hasMany(Movie::class);
+    public function savedMovies(){
+        return $this->hasMany(SavedMovie::class);
     }
 
     public function messages(){

@@ -12,11 +12,8 @@ class Comment extends Model
         return $this->belongsTo(Movie::class);
     }
 
-    public function member(){
-        return $this->belongsTo(Member::class);
+    public function postedBy(){
+        return $this->belongsTo(Member::class, 'poster_id');
     }
 
-    public function administrator(){
-        return $this->belongsTo(Administrator::class);
-    }
 }

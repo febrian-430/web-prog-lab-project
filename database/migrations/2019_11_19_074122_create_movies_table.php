@@ -19,7 +19,8 @@ class CreateMoviesTable extends Migration
             $table->string('description');
             $table->float('rating');
             $table->string('movie_image');
-            $table->timestamp('created_at')->nullable();
+            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('poster_id');
             $table->timestamps();
         });
     }

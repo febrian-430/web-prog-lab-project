@@ -13,14 +13,9 @@ class Movie extends Model
         return $this->belongsToMany(Member::class);
     }
 
-    public function administrator(){
-        return $this->belongsTo(Administrator::class);
+    public function postedBy(){
+        return $this->hasOne(Member::class, 'poster_id');
     }
-
-    public function administrators(){
-        return $this->belongsToMany(Administrator::class);
-    }
-
 
     public function comments(){
         return $this->hasMany(Comment::class);

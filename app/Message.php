@@ -12,7 +12,7 @@ class Message extends Model
         return $this->belongsTo(Member::class);
     }
 
-    public function administrator(){
-        return $this->belongsTo(Administrator::class);
+    public function sender(){
+        return $this->hasOne(Member::class, 'sender_id');
     }
 }

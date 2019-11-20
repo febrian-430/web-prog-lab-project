@@ -22,13 +22,8 @@ class CreateMembersTable extends Migration
             $table->string('address');
             $table->date('birthday');
             $table->string('profile_picture');
-            
-            $table->bigInteger('saved_movie_id')->unsigned();
+            $table->string('role');
             $table->timestamps();
-
-            
-            
-
             
         });
     }

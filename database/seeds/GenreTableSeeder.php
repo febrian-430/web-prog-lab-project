@@ -12,5 +12,20 @@ class GenreTableSeeder extends Seeder
     public function run()
     {
         //
+        DB::table('genres')->insert([
+            'genre_name' => 'Action'
+        ]);
+        DB::table('genres')->insert([
+            'genre_name' => 'Thriller'
+        ]);
+        DB::table('genres')->insert([
+            'genre_name' => 'Sci-fi'
+        ]);
+        DB::table('genres')->insert([
+            'genre_name' => 'Drama'
+        ]);
+        DB::table('genres')->insert([
+            'genre_name' => 'Horror'
+        ]);
     }
 }

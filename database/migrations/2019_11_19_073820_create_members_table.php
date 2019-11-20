@@ -24,8 +24,6 @@ class CreateMembersTable extends Migration
             $table->string('profile_picture');
             
             $table->bigInteger('saved_movie_id')->unsigned();
-            $table->foreign('movie_id')->references('id')->
-                on('movies')->onDelete('cascade');
             $table->timestamps();
 
             

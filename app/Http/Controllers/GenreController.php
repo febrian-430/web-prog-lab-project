@@ -14,7 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::all();
+        return view('genre.master')->with('genres', $genres);
     }
 
     /**
@@ -25,6 +26,7 @@ class GenreController extends Controller
     public function create()
     {
         //
+        return view('genre.create');
     }
 
     /**
@@ -36,6 +38,16 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         //
+        $validation = [
+            'genre_name' => 'required|unique:genres,genre_name|alpha_dash'
+        ];
+        $this->validate($request, $validation);
+
+        $genre = new Genre();
+        $genre->genre_name = $request->genre_name;
+        $genre->save();
+
+        return view('genre.create')->with(['complete' => 'Success added new genre']);
     }
 
     /**

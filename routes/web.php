@@ -22,6 +22,14 @@ Route::get('/register', 'MemberController@create');
 
 Route::get('/home', 'MemberController@index');
 
-Route::get('/manage/movies', 'MovieController@index');
 
-Route::get('/manage/members', 'MemberController@index');
+Route::prefix('/manage')->group(function () {
+    Route::get('/movies', 'MovieController@index');
+    Route::get('/members', 'MemberController@index');
+    Route::get('/genres', 'GenreController@index');
+
+    Route::group(['prefix' => 'genres'], function(){
+        Route::get('/add', 'GenreController@create');
+        Route::post('/add', 'GenreController@store');
+    });
+});

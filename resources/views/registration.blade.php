@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-    <div>Register</div>
+    Register
 @endsection
 
 @section('content')
     <form action="/register" method="post" enctype="multipart/form-data">
-    @csrf
+        @csrf
         <table id = "register-form">
             <tr>
                 <td>Fullname </td>

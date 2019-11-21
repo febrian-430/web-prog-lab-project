@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Member;
-use Faker\Provider\Uuid as FakerUuid;
+use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Ramsey\Uuid\Uuid;
 
 class MemberController extends Controller
 {
@@ -18,8 +17,8 @@ class MemberController extends Controller
     public function index()
     {
         //
-        $members = Member::all();
-        return view('home')->with('members', $members);
+        $members = Member::paginate(10);
+        return view('member.master')->with('members', $members);
     }
 
     /**
@@ -53,7 +52,7 @@ class MemberController extends Controller
         $this->validate($request, $validation);
 
         $photo = $request->file('profile_picture');
-        $photo_name = Uuid::uuid1(). '.' . $photo->getClientOriginalExtension();
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
         $storage_destination = storage_path('/app/public/images');
         $photo->move($storage_destination, $photo_name);
 

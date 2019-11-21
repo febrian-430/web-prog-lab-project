@@ -23,3 +23,5 @@ Route::get('/register', 'MemberController@create');
 Route::get('/home', 'MemberController@index');
 
 Route::get('/manage/movies', 'MovieController@index');
+
+Route::get('/manage/members', 'MemberController@index');

@@ -18,4 +18,8 @@ Route::get('/', function () {
 Route::post('/register', 'MemberController@store');
 Route::get('/register', 'MemberController@create');
 
+// Route::get('/login', 'MemberController@login');
+
 Route::get('/home', 'MemberController@index');
+
+Route::get('/manage/movies', 'MovieController@index');

@@ -7,6 +7,8 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    HEADER
     @yield('content');
+    FOOTER
 </body>
 </html>

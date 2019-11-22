@@ -93,5 +93,6 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         //
+        $genre->delete();
     }
 }

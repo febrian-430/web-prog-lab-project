@@ -115,5 +115,6 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+        $member->delete();
     }
 }

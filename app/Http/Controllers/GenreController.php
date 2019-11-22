@@ -56,9 +56,11 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function show(Genre $genre)
+    public function show($id)
     {
+        $genre = Genre::find($id);
         //
+        return $genre;
     }
 
     /**
@@ -67,9 +69,11 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genre $genre)
+    public function edit($id)
     {
-        //
+        $genre = Genre::find($id);
+        // return view('genre.update', compact('genre'));
+        return view('genre.edit')->with('genre', $genre);
     }
 
     /**
@@ -79,9 +83,17 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(Request $request, $id)
     {
-        //
+        $genre = Genre::find($id);
+        $validation = [
+            'genre_name' => 'required|unique:genres,genre_name|alpha_dash'
+        ];
+        $this->validate($request, $validation);
+
+        $genre->genre_name = $request->genre_name;
+        $genre->save();
+        return redirect('/manage/genres')->with(['complete' => 'Update successful']);
     }
 
     /**
@@ -90,9 +102,9 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genre $genre)
+    public function destroy($id)
     {
-        //
-        $genre->delete();
+        Genre::destroy($id);
+        return redirect('manage/genres');
     }
 }

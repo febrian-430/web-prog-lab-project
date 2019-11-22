@@ -31,8 +31,11 @@ Route::prefix('/manage')->group(function () {
     Route::group(['prefix' => 'genres'], function(){
         Route::get('/add', 'GenreController@create');
         Route::post('/add', 'GenreController@store');
+        Route::get('/{id}', 'GenreController@show');
 
-        Route::get('/{id}/edit', 'GenreController@show');
-        Route::put('/{id}/edit', 'GenreController@update');
+        Route::get('/{id}/edit', 'GenreController@edit');
+        Route::put('/{id}', 'GenreController@update');
+
+        Route::delete('/{id}','GenreController@destroy');
     });
 });

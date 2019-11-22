@@ -25,10 +25,27 @@
             {{-- <td>{{$movie->movie_image}}</td> --}}
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
-            <td><button>Edit</button>
-                <button>Delete</button></td>
-        </tr>       
+            <td><button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button></td>
+        </tr>
         @endforeach
     </table>
     {{$movies->links()}}
+
+    <script>
+            $(document).ready(function(){
+                $('.edit-btn').click(function(){
+                    var row = $(this).closest('tr');
+                    var id = row.find('td:eq(0)').text();
+                    window.location.replace('movies/' + id + '/edit');
+                });
+
+                $('.delete-btn').click(function(){
+                    var row = $(this).closest('tr');
+                    var id = row.find('td:eq(0)').text();
+                    window.location.replace('movies/' + id + '/delete');
+                });
+
+            });
+        </script>
 @endsection

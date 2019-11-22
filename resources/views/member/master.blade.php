@@ -16,7 +16,7 @@
             <td>Profile Picture</td>
             <td>DOB</td>
             <td>Action</td>
-            
+
         </tr>
         @foreach ($members as $member)
         <tr>
@@ -31,10 +31,27 @@
                 <img width="100px" height="100px" src={{"storage/images/".$member->profile_picture}} alt="">
             </td>
             <td>{{$member->birthday}}</td>
-            <td><button>Edit</button>
-                <button>Delete</button></td>
-        </tr>       
+            <td><button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button></td>
+        </tr>
         @endforeach
     </table>
     {{$members->links()}}
+
+    <script>
+            $(document).ready(function(){
+                $('.edit-btn').click(function(){
+                    var row = $(this).closest('tr');
+                    var id = row.find('td:eq(0)').text();
+                    window.location.replace('members/' + id + '/edit');
+                });
+
+                $('.delete-btn').click(function(){
+                    var row = $(this).closest('tr');
+                    var id = row.find('td:eq(0)').text();
+                    window.location.replace('members/' + id + '/delete');
+                });
+
+            });
+        </script>
 @endsection

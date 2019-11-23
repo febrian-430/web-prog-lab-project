@@ -66,7 +66,7 @@ class MemberController extends Controller
         $member->profile_picture = $photo_name;
         $member->role = "Member";
         $member->save();
-        
+
         return view('registration', [
             'success' => 'Registration completed'
         ]);
@@ -81,6 +81,7 @@ class MemberController extends Controller
     public function show(Member $member)
     {
         //
+        return view('member.show')->with('member', $member);
     }
 
     /**
@@ -92,6 +93,7 @@ class MemberController extends Controller
     public function edit(Member $member)
     {
         //
+        return view('member.edit')->with('member', $member);
     }
 
     /**
@@ -104,6 +106,36 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         //
+        $validation = [
+            'name' => 'required|max:100',
+            'email' => 'required|email|unique:members,email',
+            'password' => 'required|confirmed|min:6|alpha_num',
+            'password_confirmation' => 'required|min:6|alpha_num',
+            'gender' => 'required|in:Male, Female',
+            'address' => 'required',
+            'birthday' => 'required|date',
+            'profile_picture' => 'required|mimes:jpeg,png,jpg'
+        ];
+        $this->validate($request, $validation);
+
+        $photo = $request->file('profile_picture');
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/images');
+        $photo->move($storage_destination, $photo_name);
+
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->password = Hash::make($request->password);
+        $member->gender = $request->gender;
+        $member->address = $request->address;
+        $member->birthday = $request->birthday;
+        $member->profile_picture = $photo_name;
+        $member->role = "Member";
+        $member->save();
+
+        return view('member.master', [
+            'success' => 'Update completed'
+        ]);
     }
 
     /**
@@ -115,6 +147,6 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
-        $member->delete();
+        Member::destroy($member->id);
     }
 }

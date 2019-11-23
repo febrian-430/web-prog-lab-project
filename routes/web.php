@@ -38,4 +38,15 @@ Route::prefix('/manage')->group(function () {
 
         Route::delete('/{id}','GenreController@destroy');
     });
+
+    Route::group(['prefix' => 'members'], function(){
+        Route::get('/add', 'MemberController@create');
+        Route::post('/add', 'MemberController@store');
+        Route::get('/{id}', 'MemberController@show');
+
+        Route::get('/{id}/edit', 'MemberController@edit');
+        Route::put('/{id}', 'MemberController@update');
+
+        Route::delete('/{id}', 'MemberController@destroy');
+    });
 });

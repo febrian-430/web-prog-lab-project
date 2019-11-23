@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
+    protected $fillable = [
+        'name', 'gender', 'email', 'password', 'birthday', 'profile_picture', 'role','address'
+    ];
     //
     public function savedMovies(){
         return $this->hasMany(SavedMovie::class);

@@ -10,17 +10,17 @@
         <table id = "register-form">
             <tr>
                 <td>Fullname </td>
-                <td><input type="text" name="name" value="{{old('name')}}"></td>
+                <td><input type="text" name="name"></td>
                 <td>{{$errors->first('name')}}</td>
             </tr>
             <tr>
                 <td>Email </td>
-                <td><input type="email" name="email" value="{{old('email')}}"></td>
+                <td><input type="email" name="email"></td>
                 <td>{{$errors->first('email')}}</td>
             </tr>
             <tr>
                 <td>Password </td>
-                <td><input type="password" name="password" value="{{old('password')}}"></td>
+                <td><input type="password" name="password"></td>
                 <td>{{$errors->first('password')}}</td>
             </tr>
             <tr>
@@ -30,20 +30,20 @@
             </tr>
             <tr>
                 <td>Gender </td>
-                <td><input type="radio" name="gender" value="Male" value="{{old('gender')}}"> Male
-                    <input type="radio" name="gender" value="Female" value="{{old('gender')}}"> Female
+                <td><input type="radio" name="gender" value="Male"> Male
+                    <input type="radio" name="gender" value="Female"> Female
                 </td>
                 <td>{{$errors->first('gender')}}</td>
             </tr>
             <tr>
                 <td>Address </td>
-                <td><textarea name="address" cols="30" rows="10" value="{{old('address')}}"></textarea>
+                <td><textarea name="address" cols="30" rows="10"></textarea>
                 </td>
                 <td>{{$errors->first('address')}}</td>
             </tr>
             <tr>
                 <td>Date of Birth </td>
-                <td><input type="date" name="birthday" value="{{old('birthday')}}">
+                <td><input type="date" name="birthday">
                 </td>
                 <td>{{$errors->first('birthday')}}</td>
             </tr>
@@ -54,7 +54,7 @@
             </tr>
         </table>
 
-        <input type="submit" value="Register">
+        <input type="submit" value="Submit">
 
         @isset($success)
             {{$success}}

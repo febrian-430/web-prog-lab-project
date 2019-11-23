@@ -24,15 +24,19 @@
             <td>{{$member->name}}</td>
             <td>{{$member->email}}</td>
             <td>{{$member->role}}</td>
-            {{-- <td>{{$movie->movie_image}}</td> --}}
             <td>{{$member->gender}}</td>
             <td>{{$member->address}}</td>
             <td>
                 <img width="100px" height="100px" src={{"storage/images/".$member->profile_picture}} alt="">
             </td>
             <td>{{$member->birthday}}</td>
-            <td><button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button></td>
+            <<td><a href="/manage/members/{{ $member->id }}/edit">Edit</a>
+                <form action="/manage/members/{{ $member->id }}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </table>

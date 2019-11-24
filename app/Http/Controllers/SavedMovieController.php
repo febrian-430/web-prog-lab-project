@@ -16,6 +16,9 @@ class SavedMovieController extends Controller
     public function index()
     {
         //
+        $id = Auth::user()->id;
+        $savedMovies = SavedMovie::where($id);
+        // return view()->with('savedMovies, $savedMovies);
     }
 
     /**

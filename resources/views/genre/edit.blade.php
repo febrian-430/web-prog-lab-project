@@ -14,7 +14,7 @@
                 Genre:
             </td>
             <td>
-                <input type="text" name="genre_name" value="{{ $genre->name }}">
+                <input type="text" name="genre_name" value="{{ $genre->genre_name }}">
             <td>
                 {{$errors->first('genre_name')}}
             </td>
@@ -26,3 +26,4 @@
     @endisset
 </form>
 @endsection
+s

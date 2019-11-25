@@ -31,12 +31,12 @@ Route::prefix('/manage')->group(function () {
     Route::group(['prefix' => 'genres'], function(){
         Route::get('/add', 'GenreController@create');
         Route::post('/add', 'GenreController@store');
-        Route::get('/{id}', 'GenreController@show');
+        Route::get('/{genre}', 'GenreController@show');
 
-        Route::get('/{id}/edit', 'GenreController@edit');
-        Route::put('/{id}', 'GenreController@update');
+        Route::get('/{genre}/edit', 'GenreController@edit');
+        Route::put('/{genre}', 'GenreController@update');
 
-        Route::delete('/{id}','GenreController@destroy');
+        Route::delete('/{genre}','GenreController@destroy');
     });
 
     Route::group(['prefix' => 'members'], function(){

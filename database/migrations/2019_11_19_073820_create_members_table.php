@@ -23,9 +23,9 @@ class CreateMembersTable extends Migration
             $table->date('birthday');
             $table->string('profile_picture');
             $table->string('role');
-            $table->string('remember_token ')->nullable(); 
+            // $table->string('remember_token ')->nullable();
             $table->timestamps();
-            
+
         });
     }
 

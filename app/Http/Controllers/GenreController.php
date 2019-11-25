@@ -56,9 +56,9 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Genre $genre)
     {
-        $genre = Genre::find($id);
+        // $genre = Genre::find($id);
         //
         return $genre;
     }
@@ -69,10 +69,10 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Genre $genre)
     {
-        $genre = Genre::find($id);
-        // return view('genre.update', compact('genre'));
+        // $genre = Genre::find($id);
+        // return view('genre.edit', compact($genre));
         return view('genre.edit')->with('genre', $genre);
     }
 

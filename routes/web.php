@@ -42,11 +42,22 @@ Route::prefix('/manage')->group(function () {
     Route::group(['prefix' => 'members'], function(){
         Route::get('/add', 'MemberController@create');
         Route::post('/add', 'MemberController@store');
-        Route::get('/{id}', 'MemberController@show');
+        Route::get('/{member}', 'MemberController@show');
 
-        Route::get('/{id}/edit', 'MemberController@edit');
-        Route::put('/{id}', 'MemberController@update');
+        Route::get('/{member}/edit', 'MemberController@edit');
+        Route::put('/{member}', 'MemberController@update');
 
-        Route::delete('/{id}', 'MemberController@destroy');
+        Route::delete('/{member}', 'MemberController@destroy');
+    });
+
+    Route::group(['prefix' => 'movies'], function () {
+        Route::get('/add', 'MovieController@create');
+        Route::post('/add', 'MovieController@store');
+        Route::get('/{movie}', 'MovieController@show');
+
+        Route::get('/{movie}/edit', 'MovieController@edit');
+        Route::put('/{movie}', 'MovieController@update');
+
+        Route::delete('/{movie}', 'MovieController@destroy');
     });
 });

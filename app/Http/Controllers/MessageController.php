@@ -15,7 +15,9 @@ class MessageController extends Controller
     public function index()
     {
         //
-        $messages = Message::all();
+        $id = Auth::user()->id;
+        $inbox = Message::where($id);
+        // return view()->with('inbox', $inbox);
     }
 
     /**

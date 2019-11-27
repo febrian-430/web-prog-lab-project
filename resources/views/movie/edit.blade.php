@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form action="/manage/movies/{{ $movie->id}}" method="post" enctype="multipart/form-data">
+<form action="/manage/movies/{{$movie->id}}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
     <table>
@@ -14,28 +14,28 @@
                 Title
             </td>
             <td>
-                <input type="text" name="title" id="title" value="{{ $movie->title }}'">
-                <td>{{$errors->first('title')}}</td>
+                <input type="text" name="title" id="title" value="{{ $movie->title }}">
             </td>
+            <td>{{$errors->first('title')}}</td>
         </tr>
         <tr>
-            Genre
-        </tr>
-        <tr>
-            <select name="genre" id="genre">
-                <option value="" selected disabled hidden>Choose genre</option>
-                @foreach ($genres as $genre)
-                    <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
-                @endforeach
-            </select>
+            <td>Genre</td>
+            <td>
+                <select name="genre" id="genre">
+                    <option value="" selected disabled hidden>Choose genre</option  >
+                    @foreach ($genres as $genre )
+                        <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
+                    @endforeach
+                </select>
+            </td>
             <td>{{$errors->first('genre')}}</td>
-
         </tr>
         <tr>
             <td>Description</td>
-            <td><textarea name="description" id="description" cols="30" rows="10" value="{{$movie->description}}">
-                <td>{{$errors->first('description')}}</td>
-            </textarea></td>
+            <td>
+                <textarea name="description" id="description" cols="30" rows="10">{{$movie->description}}</textarea>
+            </td>
+            <td>{{$errors->first('description')}}</td>
         </tr>
         <tr>
             <td>Rating</td>

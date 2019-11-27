@@ -13,9 +13,9 @@
                     Title
                 </td>
                 <td>
-                    <td><input type="text" name="title" id="title"></td>
-                    <td>{{$errors->first('title')}}</td>
+                    <input type="text" name="title" id="title">
                 </td>
+                <td>{{$errors->first('title')}}</td>
             </tr>
             <tr>
                 <td>>Genre</td>
@@ -28,12 +28,10 @@
                     </select>
                 </td>
                 <td>{{$errors->first('genre')}}</td>
-
             </tr>
             <tr>
                 <td>Description</td>
-                <td><textarea name="description" id="description" cols="30" rows="10" >
-                </textarea></td>
+                <td><textarea name="description" id="description" cols="30" rows="10" ></textarea></td>
                 <td>{{$errors->first('description')}}</td>
             </tr>
             <tr>

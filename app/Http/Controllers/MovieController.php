@@ -10,11 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
+
+    public function fetchAll(){
+        $movies = Movie::paginate(10);
+        return $movies;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         //
@@ -69,8 +76,12 @@ class MovieController extends Controller
             'genre_id' => $request->genre,
             'member_id' => '1'
         ]);
-
-        return view('movie.master')->with(['success' => 'Successfully added '.$movie->title]);
+        $movies = Self::fetchAll();
+        return view('movie.master',
+            [
+                'notification' => 'Successfully added '.$movie->title,
+                'movies' => $movies
+            ]);
     }
 
     /**
@@ -81,6 +92,7 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
+
         //
     }
 
@@ -123,16 +135,20 @@ class MovieController extends Controller
         $storage_destination = storage_path('/app/public/images/movieImg');
         $photo->move($storage_destination, $photo_name);
 
-        $movie = Movie::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'rating' => $request->rating,
-            'movie_image' => $photo_name,
-            'genre_id' => $request->genre,
-            'member_id' => '1' //to be corrected
-        ]);
+        $movie->title =  $request->title;
+        $movie->description =  $request->description;
+        $movie->rating =  $request->rating;
+        $movie->movie_image =  $photo_name;
+        $movie->genre_id =  $request->genre;
+        $movie->member_id =  '1'; //to be corrected
+        $movie->save();
 
-        return view('movie.master')->with(['success' => 'Successfully updated '.$movie->title]);
+        $movies = Self::fetchAll();
+        return view('movie.master',
+            [
+                'notification' => 'Successfully updated '.$movie->title,
+                'movies' => $movies
+            ]);
     }
 
     /**
@@ -144,6 +160,13 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
-        $movie->delete();
+        $temp = $movie;
+        Movie::destroy($movie->id);
+        return view('movie.master')->with(
+            ['notification' => $temp->title.' has been deleted',
+            'movies' => Self::fetchAll()
+        ]);
     }
+
+
 }

@@ -5,6 +5,10 @@
 @endsection
 
 @section('content')
+    @isset($notification)
+        <div>{{ $notification }}</div>
+    @endisset
+
     <table>
         <tr>
             <td>#</td>
@@ -28,7 +32,7 @@
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
             <<td><a href="/manage/movies/{{ $movie->id }}/edit">Edit</a>
-                <form action="/manage/members/{{ $movie->id }}" method="post">
+                <form action="/manage/movies/{{ $movie->id }}" method="post">
                     @method('delete')
                     @csrf
                     <button type="submit" class="delete-btn">Delete</button>

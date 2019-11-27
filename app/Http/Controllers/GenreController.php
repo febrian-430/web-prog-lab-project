@@ -83,9 +83,8 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Genre $genre)
     {
-        $genre = Genre::find($id);
         $validation = [
             'genre_name' => 'required|unique:genres,genre_name|alpha_dash'
         ];
@@ -102,9 +101,9 @@ class GenreController extends Controller
      * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Genre $genre)
     {
-        Genre::destroy($id);
+        Genre::destroy($genre->id);
         return redirect('manage/genres');
     }
 }

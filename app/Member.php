@@ -21,4 +21,8 @@ class Member extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+    public function postedMovies(){
+        return $this->hasMany(Movie::class);
+    }
 }

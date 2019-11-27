@@ -14,7 +14,7 @@ class Movie extends Model
     }
 
     public function postedBy(){
-        return $this->hasOne(Member::class, 'poster_id');
+        return $this->belongsTo(Member::class);
     }
 
     public function comments(){

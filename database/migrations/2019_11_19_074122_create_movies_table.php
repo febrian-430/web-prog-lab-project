@@ -20,7 +20,7 @@ class CreateMoviesTable extends Migration
             $table->float('rating');
             $table->string('movie_image');
             $table->unsignedBigInteger('genre_id');
-            $table->unsignedBigInteger('poster_id');
+            $table->unsignedBigInteger('member_id');
             $table->timestamps();
         });
     }

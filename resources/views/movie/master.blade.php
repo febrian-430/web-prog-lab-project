@@ -19,20 +19,25 @@
         @foreach ($movies as $movie)
         <tr>
             <td>{{$movie->id}}</td>
-            <td>{{$movie->postedBy->name}}</td>
+            <td>{{$movie->postedBy}}</td>
             <td>{{$movie->genre->genre_name}}</td>
             <td>{{$movie->title}}</td>
             {{-- <td>{{$movie->movie_image}}</td> --}}
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
-            <td><button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button></td>
+            <<td><a href="/manage/movies/{{ $movie->id }}/edit">Edit</a>
+                <form action="/manage/members/{{ $movie->id }}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
     </table>
     {{$movies->links()}}
 
-    <script>
+    {{-- <script>
             $(document).ready(function(){
                 $('.edit-btn').click(function(){
                     var row = $(this).closest('tr');
@@ -47,5 +52,5 @@
                 });
 
             });
-        </script>
+        </script> --}}
 @endsection

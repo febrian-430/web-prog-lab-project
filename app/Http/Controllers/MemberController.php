@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Member;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
@@ -96,6 +97,11 @@ class MemberController extends Controller
         return view('member.edit')->with('member', $member);
     }
 
+    public function edit_self(){
+        $member = Auth::member();
+        return view('member.edit')->with('member', $member);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -114,13 +120,14 @@ class MemberController extends Controller
             'gender' => 'required|in:Male, Female',
             'address' => 'required',
             'birthday' => 'required|date',
-            'profile_picture' => 'required|mimes:jpeg,png,jpg'
+            'profile_picture' => 'required|mimes:jpeg,png,jpg',
+            'role' => 'required'
         ];
         $this->validate($request, $validation);
 
         $photo = $request->file('profile_picture');
         $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
-        $storage_destination = storage_path('/app/public/images');
+        $storage_destination = storage_path('/app/public/images/memberImg');
         $photo->move($storage_destination, $photo_name);
 
         $member->name = $request->name;
@@ -130,7 +137,7 @@ class MemberController extends Controller
         $member->address = $request->address;
         $member->birthday = $request->birthday;
         $member->profile_picture = $photo_name;
-        $member->role = "Member";
+        $member->role = $request->role;
         $member->save();
 
         return view('member.master', [

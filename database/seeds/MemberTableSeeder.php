@@ -1,5 +1,6 @@
 <?php
 
+use App\Member;
 use Illuminate\Database\Seeder;
 
 class MemberTableSeeder extends Seeder
@@ -12,5 +13,16 @@ class MemberTableSeeder extends Seeder
     public function run()
     {
         //
+        $member = Member::create(
+            [
+                'name' => 'admin',
+                'gender' => 'male',
+                'email' => 'admin@admin',
+                'password' => 'adminadmin',
+                'birthday' => '2019-11-27',
+                'profile_picture' => 'none.jpg',
+                'role' => 'Administrator',
+                'address' => 'none'
+            ]);
     }
 }

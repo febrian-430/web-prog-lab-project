@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Genre;
 use App\Movie;
+use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -28,6 +31,8 @@ class MovieController extends Controller
     public function create()
     {
         //
+        $genres = Genre::all();
+        return view('movie.create')->with('genres', $genres);
     }
 
     /**
@@ -39,6 +44,33 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         //
+        // $admin = Auth::user();
+        $validation =
+        [
+            'title' => 'required',
+            'genre' => 'required|not_in:0',
+            'description' => 'required',
+            'rating' => 'required|numeric|max:10|min:0',
+            'movie_image' => 'required|mimes:jpeg,png,jpg'
+        ];
+
+        $this->validate($request, $validation);
+
+        $photo = $request->file('movie_image');
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/images/movieImg');
+        $photo->move($storage_destination, $photo_name);
+
+        $movie = Movie::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'rating' => $request->rating,
+            'movie_image' => $photo_name,
+            'genre_id' => $request->genre,
+            'member_id' => '1'
+        ]);
+
+        return view('movie.master')->with(['success' => 'Successfully added '.$movie->title]);
     }
 
     /**

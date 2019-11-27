@@ -19,10 +19,12 @@
         @foreach ($movies as $movie)
         <tr>
             <td>{{$movie->id}}</td>
-            <td>{{$movie->postedBy}}</td>
+            <td>{{$movie->member->name}}</td>
             <td>{{$movie->genre->genre_name}}</td>
             <td>{{$movie->title}}</td>
-            {{-- <td>{{$movie->movie_image}}</td> --}}
+            <td>
+                <img src={{"/storage/app/public/images/movieImg/".$movie->movie_image}} alt="">
+            </td>
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
             <<td><a href="/manage/movies/{{ $movie->id }}/edit">Edit</a>

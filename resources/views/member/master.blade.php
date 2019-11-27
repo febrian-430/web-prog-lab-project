@@ -42,7 +42,7 @@
     </table>
     {{$members->links()}}
 
-    <script>
+    {{-- <script>
             $(document).ready(function(){
                 $('.edit-btn').click(function(){
                     var row = $(this).closest('tr');
@@ -57,5 +57,5 @@
                 });
 
             });
-        </script>
+        </script> --}}
 @endsection

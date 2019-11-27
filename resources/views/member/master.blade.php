@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+@isset($notification)
+    <div>{{$notification}}</div>
+@endisset
 <table>
         <tr>
             <td>#</td>

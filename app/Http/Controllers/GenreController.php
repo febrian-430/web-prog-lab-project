@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    public function fetchAll(){
+        return Genre::all();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genres = Genre::all();
+        $genres = Self::fetchAll();
         return view('genre.master')->with('genres', $genres);
     }
 
@@ -47,7 +50,11 @@ class GenreController extends Controller
         $genre->genre_name = $request->genre_name;
         $genre->save();
 
-        return view('genre.create')->with(['complete' => 'Success added new genre']);
+        return view('genre.master',
+        [
+            'notification' => 'Genre '.$genre->genre_name. ' has been added',
+            'genres' => Self::fetchAll()
+        ]);
     }
 
     /**
@@ -86,13 +93,17 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $validation = [
-            'genre_name' => 'required|unique:genres,genre_name|alpha_dash'
+            'genre_name' => 'required|unique:genres,genre_name,'.$genre->id.'|alpha_dash'
         ];
         $this->validate($request, $validation);
-
+        $prev_name = $genre->genre_name;
         $genre->genre_name = $request->genre_name;
         $genre->save();
-        return redirect('/manage/genres')->with(['complete' => 'Update successful']);
+        return view('genre.master',
+        [
+            'notification' => 'Genre '.$prev_name. ' was updated',
+            'genres' => Self::fetchAll()
+        ]);
     }
 
     /**
@@ -103,7 +114,12 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
+        $name = $genre->genre_name;
         Genre::destroy($genre->id);
-        return redirect('manage/genres');
+        return redirect('/manage/genres',
+        [
+            'notification' => 'Genre '.$name.' has been deleted',
+            ''
+        ]);
     }
 }

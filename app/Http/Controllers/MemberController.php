@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
+
+    private function fetchAll(){
+        return Member::paginate(10);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,7 @@ class MemberController extends Controller
     public function index()
     {
         //
-        $members = Member::paginate(10);
+        $members = Self::fetchAll();
         return view('member.master')->with('members', $members);
     }
 
@@ -114,7 +118,7 @@ class MemberController extends Controller
         //
         $validation = [
             'name' => 'required|max:100',
-            'email' => 'required|email|unique:members,email',
+            'email' => 'required|email|unique:members,email,'.$member->id,
             'password' => 'required|confirmed|min:6|alpha_num',
             'password_confirmation' => 'required|min:6|alpha_num',
             'gender' => 'required|in:Male, Female',
@@ -140,8 +144,11 @@ class MemberController extends Controller
         $member->role = $request->role;
         $member->save();
 
-        return view('member.master', [
-            'success' => 'Update completed'
+        $members = Self::fetchAll();
+        return view('member.master',
+        [
+            'notification' => 'Update successful',
+            'members' => $members
         ]);
     }
 
@@ -154,6 +161,11 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+        $name = $member->name;
         Member::destroy($member->id);
+        return view('member.master',
+        [
+            'notification' => 'User '.$name.' has been deleted'
+        ]);
     }
 }

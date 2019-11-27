@@ -12,6 +12,9 @@
 </head>
 <body>
     HEADER
+    @isset($notification)
+        <div>{{$notification}}</div>
+    @endisset
     @yield('content');
     FOOTER
 </body>

@@ -25,15 +25,16 @@
                 </td>
                 <td>
                     <select name="role" id="role">
-                        <option value="" selected disabled hidden>Choose role</option>
+                        <option value="" selected disabled hidden>Choose</option>
                         <option value="Administrator">Administrator</option>
                         <option value="Member">Member</option>
                     </select>
                 </td>
+                <td>{{$errors->first('role')}}</td>
             </tr>
             <tr>
                 <td>Password </td>
-                <td><input type="password" name="password" value="{{ $member->password }}"></td>
+                <td><input type="password" name="password"></td>
                 <td>{{$errors->first('password')}}</td>
             </tr>
             <tr>
@@ -50,7 +51,7 @@
             </tr>
             <tr>
                 <td>Address </td>
-                <td><textarea name="address" cols="30" rows="10" value="{{ $member->address }}"></textarea>
+                <td><textarea name="address" cols="30" rows="10" >{{ $member->address }}</textarea>
                 </td>
                 <td>{{$errors->first('address')}}</td>
             </tr>

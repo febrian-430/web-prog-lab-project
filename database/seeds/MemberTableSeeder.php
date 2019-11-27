@@ -14,15 +14,26 @@ class MemberTableSeeder extends Seeder
     {
         //
         $member = Member::create(
-            [
+        [
                 'name' => 'admin',
-                'gender' => 'male',
+                'gender' => 'Male',
                 'email' => 'admin@admin',
-                'password' => 'adminadmin',
+                'password' => Hash::make('adminadmin'),
                 'birthday' => '2019-11-27',
                 'profile_picture' => 'none.jpg',
                 'role' => 'Administrator',
-                'address' => 'none'
+            'address' => 'none'
             ]);
+        $member = Member::create(
+        [
+                'name' => 'brah',
+                'gender' => 'Female',
+                'email' => 'brah@brah',
+                'password' => Hash::make('adminadmin'),
+                'birthday' => '2019-11-27',
+                'profile_picture' => 'none.jpg',
+                'role' => 'Administrator',
+                'address' => 'BRAH'
+        ]);
     }
 }

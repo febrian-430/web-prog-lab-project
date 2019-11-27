@@ -24,7 +24,7 @@ class CreateMembersTable extends Migration
             $table->string('profile_picture');
             $table->string('role');
             // $table->bigInteger('movie_id')->unsigned();
-            // $table->string('remember_token ')->nullable();
+            $table->string('remember_token')->nullable();
             $table->timestamps();
 
 

@@ -61,3 +61,7 @@ Route::prefix('/manage')->group(function () {
         Route::delete('/{movie}', 'MovieController@destroy');
     });
 });
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');

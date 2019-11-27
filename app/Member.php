@@ -3,11 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Member extends Model
+class Member extends Authenticatable
 {
+    use Notifiable;
+
+    protected $table = 'members';
     protected $fillable = [
         'name', 'gender', 'email', 'password', 'birthday', 'profile_picture', 'role','address'
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token'
     ];
     //
     public function savedMovies(){

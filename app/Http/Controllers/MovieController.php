@@ -93,6 +93,8 @@ class MovieController extends Controller
     public function edit(Movie $movie)
     {
         //
+        $genres = Genre::all();
+        return view('movie.edit')->with('movie', $movie)->with('genres', $genres);
     }
 
     /**
@@ -105,6 +107,32 @@ class MovieController extends Controller
     public function update(Request $request, Movie $movie)
     {
         //
+        $validation =
+        [
+            'title' => 'required',
+            'genre' => 'required|not_in:0',
+            'description' => 'required',
+            'rating' => 'required|numeric|max:10|min:0',
+            'movie_image' => 'required|mimes:jpeg,png,jpg'
+        ];
+
+        $this->validate($request, $validation);
+
+        $photo = $request->file('movie_image');
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/images/movieImg');
+        $photo->move($storage_destination, $photo_name);
+
+        $movie = Movie::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'rating' => $request->rating,
+            'movie_image' => $photo_name,
+            'genre_id' => $request->genre,
+            'member_id' => '1' //to be corrected
+        ]);
+
+        return view('movie.master')->with(['success' => 'Successfully updated '.$movie->title]);
     }
 
     /**

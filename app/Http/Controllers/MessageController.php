@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Member;
 use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -16,8 +18,9 @@ class MessageController extends Controller
     {
         //
         $id = Auth::user()->id;
-        $inbox = Message::where($id);
-        // return view()->with('inbox', $inbox);
+        $messages = Message::where('receiver_id', $id)->get();
+
+        return view('member.inbox')->with('messages', $messages);
     }
 
     /**
@@ -36,9 +39,22 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Member $member)
     {
         //
+        $validation = [
+            'message' => 'min:1'
+        ];
+        $this->validate($request, $validation);
+
+
+        $message = Message::create([
+            'message' => $request->message,
+            'sender_id' => $member->id,
+            'receiver_id' => Auth::user()->id
+        ]);
+
+        return view('member.create', ['notification' => 'Your message has been sent to '.$member->name]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Member;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class MemberTableSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class MemberTableSeeder extends Seeder
         [
                 'name' => 'admin',
                 'gender' => 'Male',
-                'email' => 'admin@admin',
+                'email' => 'diman@admin',
                 'password' => Hash::make('adminadmin'),
                 'birthday' => '2019-11-27',
                 'profile_picture' => 'none.jpg',

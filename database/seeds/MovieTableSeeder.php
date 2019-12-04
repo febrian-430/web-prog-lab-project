@@ -19,7 +19,7 @@ class MovieTableSeeder extends Seeder
             'description' => 'Brah',
             'rating' => '10',
             'movie_image' => 'joker.jpg',
-            'member_id' => '1'
+            'poster_id' => '1'
         ]);
 
         Movie::create([
@@ -28,7 +28,7 @@ class MovieTableSeeder extends Seeder
             'description' => 'Brah',
             'rating' => '10',
             'movie_image' => 'batman.jpg',
-            'member_id' => '1'
+            'poster_id' => '1'
         ]);
     }
 }

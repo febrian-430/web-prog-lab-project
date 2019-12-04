@@ -26,20 +26,4 @@
         @endforeach
 </table>
 
- {{-- <script>
-    $(document).ready(function(){
-        $('.edit-btn').click(function(){
-            var row = $(this).closest('tr');
-            var id = row.find('td:eq(0)').text();
-            window.location.replace('/manage/genres/' + id + '/edit');
-        });
-
-        $('.delete-btn').click(function(){
-            var row = $(this).closest('tr');
-            var id = row.find('td:eq(0)').text();
-            window.location.replace('/manage/genres/' + id);
-        });
-
-    });
-</script> --}}
 @endsection

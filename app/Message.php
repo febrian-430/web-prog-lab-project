@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    // public $timestamps = true;
-    //
-    // public function member(){
-    //     return $this->belongsTo(Member::class);
-    // }
+    public $timestamps = true;
 
-    // public function sender(){
-    //     return $this->hasOne(Member::class, 'sender_id');
-    // }
+    protected $fillable = [
+        'message', 'sender_id', 'receiver_id'
+    ];
+
+    public function receiver(){
+        return $this->belongsTo(Member::class, 'receiver_id');
+    }
+
+    public function sender(){
+        return $this->belongsTo(Member::class, 'sender_id');
+    }
+
 }

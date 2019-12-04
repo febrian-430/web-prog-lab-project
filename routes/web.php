@@ -11,57 +11,75 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/register', 'MemberController@store');
-Route::get('/register', 'MemberController@create');
 
+
+Route::group(['middleware' => ['guest']], function () {
+    Route::post('/register', 'MemberController@store');
+    Route::get('/register', 'MemberController@create');
+});
 // Route::get('/login', 'MemberController@login');
 
 Route::get('/home', 'MemberController@index');
 
 
-Route::prefix('/manage')->group(function () {
-    Route::get('/movies', 'MovieController@index');
-    Route::get('/members', 'MemberController@index');
-    Route::get('/genres', 'GenreController@index');
+Route::group(['middleware' => ['admin']], function () {
+    Route::prefix('/manage')->group(function () {
+        Route::get('/movies', 'MovieController@index');
+        Route::get('/members', 'MemberController@index');
+        Route::get('/genres', 'GenreController@index');
 
-    Route::group(['prefix' => 'genres'], function(){
-        Route::get('/add', 'GenreController@create');
-        Route::post('/add', 'GenreController@store');
-        Route::get('/{genre}', 'GenreController@show');
+        Route::group(['prefix' => 'genres'], function(){
+            Route::get('/add', 'GenreController@create');
+            Route::post('/add', 'GenreController@store');
+            Route::get('/{genre}', 'GenreController@show');
 
-        Route::get('/{genre}/edit', 'GenreController@edit');
-        Route::put('/{genre}', 'GenreController@update');
+            Route::get('/{genre}/edit', 'GenreController@edit');
+            Route::put('/{genre}', 'GenreController@update');
 
-        Route::delete('/{genre}','GenreController@destroy');
-    });
+            Route::delete('/{genre}','GenreController@destroy');
+        });
 
-    Route::group(['prefix' => 'members'], function(){
-        Route::get('/add', 'MemberController@create');
-        Route::post('/add', 'MemberController@store');
-        Route::get('/{member}', 'MemberController@show');
+        Route::group(['prefix' => 'members'], function(){
+            Route::get('/add', 'MemberController@create');
+            Route::post('/add', 'MemberController@store');
+            Route::get('/{member}', 'MemberController@show');
 
-        Route::get('/{member}/edit', 'MemberController@edit');
-        Route::put('/{member}', 'MemberController@update');
+            Route::get('/{member}/edit', 'MemberController@edit');
+            Route::put('/{member}', 'MemberController@update');
 
-        Route::delete('/{member}', 'MemberController@destroy');
-    });
+            Route::delete('/{member}', 'MemberController@destroy');
+        });
 
-    Route::group(['prefix' => 'movies'], function () {
-        Route::get('/add', 'MovieController@create');
-        Route::post('/add', 'MovieController@store');
-        Route::get('/{movie}', 'MovieController@show');
+        Route::group(['prefix' => 'movies'], function () {
+            Route::get('/add', 'MovieController@create');
+            Route::post('/add', 'MovieController@store');
+            Route::get('/{movie}', 'MovieController@show');
 
-        Route::get('/{movie}/edit', 'MovieController@edit');
-        Route::put('/{movie}', 'MovieController@update');
+            Route::get('/{movie}/edit', 'MovieController@edit');
+            Route::put('/{movie}', 'MovieController@update');
 
-        Route::delete('/{movie}', 'MovieController@destroy');
+            Route::delete('/{movie}', 'MovieController@destroy');
+        });
     });
 });
+
+
 
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'member'], function () {
+    Route::get('/{member}', 'MemberController@show');
+    Route::post('/{member}', 'MessageController@store');
+});
+Route::get('/inbox', 'MessageController@index');
+
+
+
+

@@ -12,6 +12,12 @@
 </head>
 <body>
     HEADER
+    <div>
+        <form action="/logout" method="post">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </div>
     @isset($notification)
         <div>{{$notification}}</div>
     @endisset

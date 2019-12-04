@@ -23,7 +23,7 @@
         @foreach ($movies as $movie)
         <tr>
             <td>{{$movie->id}}</td>
-            <td>{{$movie->member->name}}</td>
+            <td>{{$movie->addedBy->name}}</td>
             <td>{{$movie->genre->genre_name}}</td>
             <td>{{$movie->title}}</td>
             <td>

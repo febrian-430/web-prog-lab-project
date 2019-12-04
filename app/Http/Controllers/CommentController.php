@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function fetchAll(Movie $movie){
+        return Comment::where('movie_id', $movie->id);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -33,9 +40,21 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Movie $movie)
     {
         //
+        $validation = [
+            'comment' => 'required'
+        ];
+
+        $this->validate($request, $validation);
+
+        Comment::create([
+            'content' => $request->comment,
+            'movie_id' => $movie->id,
+            'poster_id' => Auth::user()->id
+        ]);
+        return redirect()->route('movie', [$movie])->with('status', 'Your comment is posted!');
     }
 
     /**
@@ -78,8 +97,9 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Movie $movie, Comment $comment)
     {
-        //
+        Comment::destroy($comment->id);
+        return redirect()->route('movie', [$movie])->with('status', 'Your comment has been deleted');
     }
 }

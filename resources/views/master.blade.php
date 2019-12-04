@@ -18,9 +18,18 @@
             <button type="submit">Logout</button>
         </form>
     </div>
+
     @isset($notification)
         <div>{{$notification}}</div>
     @endisset
+
+    {{-- displaying status for comment, because redirect --}}
+    @if (session('status'))
+    <div>
+        {{ session('status') }}
+    </div>
+    @endif
+
     @yield('content');
     FOOTER
 </body>

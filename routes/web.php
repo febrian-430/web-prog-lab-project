@@ -74,11 +74,20 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/inbox', 'MessageController@index');
+Route::delete('inbox/{message}', 'MessageController@destroy');
+
 Route::group(['prefix' => 'member'], function () {
     Route::get('/{member}', 'MemberController@show');
     Route::post('/{member}', 'MessageController@store');
 });
-Route::get('/inbox', 'MessageController@index');
+
+Route::group(['prefix' => 'movie'], function () {
+    Route::get('/{movie}', 'MovieController@show')->name('movie');
+    Route::post('/{movie}', 'CommentController@store');
+    Route::delete('/{movie}/{comment}/delete', 'CommentController@destroy');
+});
+
 
 
 

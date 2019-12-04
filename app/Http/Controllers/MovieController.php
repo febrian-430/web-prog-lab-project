@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Genre;
 use App\Movie;
 use Faker\Provider\Uuid;
@@ -92,7 +93,11 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-
+        $comments = Comment::where('movie_id', $movie->id)->get();
+        return view('movie.show', [
+            'movie' => $movie,
+            'comments' => $comments
+        ]);
         //
     }
 

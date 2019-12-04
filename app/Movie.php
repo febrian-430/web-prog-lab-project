@@ -21,8 +21,8 @@ class Movie extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function member(){
-        return $this->belongsTo(Member::class);
+    public function addedBy(){
+        return $this->belongsTo(Member::class, 'poster_id');
     }
 
     public function genre(){

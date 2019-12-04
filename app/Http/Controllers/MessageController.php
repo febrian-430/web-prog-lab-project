@@ -18,7 +18,7 @@ class MessageController extends Controller
     {
         //
         $id = Auth::user()->id;
-        $messages = Message::where('receiver_id', $id)->get();
+        $messages = Message::where('receiver_id', $id)->paginate(10);
 
         return view('member.inbox')->with('messages', $messages);
     }
@@ -50,11 +50,11 @@ class MessageController extends Controller
 
         $message = Message::create([
             'message' => $request->message,
-            'sender_id' => $member->id,
-            'receiver_id' => Auth::user()->id
+            'sender_id' => Auth::user()->id,
+            'receiver_id' => $member->id
         ]);
 
-        return view('member.create', ['notification' => 'Your message has been sent to '.$member->name]);
+        return view('home', ['notification' => 'Your message has been sent to '.$member->name]);
     }
 
     /**
@@ -99,6 +99,11 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        $sender = $message->sender->name;
+        Message::destroy($message->id);
+        return view('member.inbox', [
+            'notification' => 'Message from '.$sender.' has been deleted',
+            'messages' => Message::where('receiver_id', Auth::user()->id)->paginate(10)
+            ]);
     }
 }

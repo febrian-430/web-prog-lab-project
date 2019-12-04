@@ -5,21 +5,24 @@
 @endsection
 
 @section('content')
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Message</th>
-            <th>Sender</th>
-            <th>Time</th>
-        </tr>
-
+    @if($messages->isEmpty())
+        <div>No message</div>
+    @else
         @foreach ($messages as $message)
-            <tr>
-                <td></td>
-                <td>{{$message->message}}</td>
-                <td>{{$message->sender->name}}</td>
-                <td>{{$message->created_at}}</td>
-            </tr>
+            <img src="" alt="">
+            <p><a href="/member/{{$message->sender->id}}">{{$message->sender->name}}</a></p>
+            <p>Posted at {{$message->created_at}}</p>
+            Message: {{$message->message}}
+            <div>
+                <form action="/inbox/{{$message->id}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit">
+                        Remove
+                    </button>
+                </form>
+            </div>
         @endforeach
-    </table>
+    {{$messages->links()}}
+    @endif
 @endsection

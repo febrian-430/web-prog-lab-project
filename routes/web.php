@@ -11,12 +11,11 @@
 |
 */
 
+use App\Http\Controllers\SavedMovieController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 Route::group(['middleware' => ['guest']], function () {
     Route::post('/register', 'MemberController@store');
@@ -24,16 +23,14 @@ Route::group(['middleware' => ['guest']], function () {
 });
 // Route::get('/login', 'MemberController@login');
 
-Route::get('/home', 'MemberController@index');
-
 
 Route::group(['middleware' => ['admin']], function () {
     Route::prefix('/manage')->group(function () {
-        Route::get('/movies', 'MovieController@index');
-        Route::get('/members', 'MemberController@index');
-        Route::get('/genres', 'GenreController@index');
+
+
 
         Route::group(['prefix' => 'genres'], function(){
+            Route::get('/', 'GenreController@index');
             Route::get('/add', 'GenreController@create');
             Route::post('/add', 'GenreController@store');
             Route::get('/{genre}', 'GenreController@show');
@@ -45,6 +42,7 @@ Route::group(['middleware' => ['admin']], function () {
         });
 
         Route::group(['prefix' => 'members'], function(){
+            Route::get('/', 'MemberController@index');
             Route::get('/add', 'MemberController@create');
             Route::post('/add', 'MemberController@store');
             Route::get('/{member}', 'MemberController@show');
@@ -56,6 +54,7 @@ Route::group(['middleware' => ['admin']], function () {
         });
 
         Route::group(['prefix' => 'movies'], function () {
+            Route::get('/', 'MovieController@index');
             Route::get('/add', 'MovieController@create');
             Route::post('/add', 'MovieController@store');
             Route::get('/{movie}', 'MovieController@show');
@@ -72,10 +71,17 @@ Route::group(['middleware' => ['admin']], function () {
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'home'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/{movie}', 'SavedMovieController@store');
+    Route::delete('/{movie}', 'SavedMovieController@destroy');
+});
 
-Route::get('/inbox', 'MessageController@index');
-Route::delete('inbox/{message}', 'MessageController@destroy');
+
+Route::group(['prefix' => 'inbox'], function () {
+    Route::get('/', 'MessageController@index');
+    Route::delete('/{message}', 'MessageController@destroy');
+});
 
 Route::group(['prefix' => 'member'], function () {
     Route::get('/{member}', 'MemberController@show');
@@ -86,8 +92,15 @@ Route::group(['prefix' => 'movie'], function () {
     Route::get('/{movie}', 'MovieController@show')->name('movie');
     Route::post('/{movie}', 'CommentController@store');
     Route::delete('/{movie}/{comment}/delete', 'CommentController@destroy');
+
+    Route::post('/{movie}/save', 'SavedMovieController@storeFromShow');
+    Route::delete('/{movie}/unsave', 'SavedMovieController@destroyFromShow');
 });
 
+Route::group(['prefix' => 'saved'], function () {
+    Route::get('/', 'SavedMovieController@index');
+    Route::delete('/{movie}', 'SavedMovieController@destroy');
+});
 
 
 

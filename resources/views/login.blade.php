@@ -2,11 +2,12 @@
 
 @section('title')
     <div>Login</div>
-    
+
 @endsection
 
 @section('content')
     <form action="/login" method="post">
+        @csrf
         <table>
             <tr>
                 <td>Email: </td>

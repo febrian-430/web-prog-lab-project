@@ -13,19 +13,19 @@ class GenreTableSeeder extends Seeder
     {
         //
         DB::table('genres')->insert([
-            'genre_name' => 'Action'
+            'name' => 'Action'
         ]);
         DB::table('genres')->insert([
-            'genre_name' => 'Thriller'
+            'name' => 'Thriller'
         ]);
         DB::table('genres')->insert([
-            'genre_name' => 'Sci-fi'
+            'name' => 'Sci-fi'
         ]);
         DB::table('genres')->insert([
-            'genre_name' => 'Drama'
+            'name' => 'Drama'
         ]);
         DB::table('genres')->insert([
-            'genre_name' => 'Horror'
+            'name' => 'Horror'
         ]);
     }
 }

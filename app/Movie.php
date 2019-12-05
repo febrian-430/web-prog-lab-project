@@ -24,6 +24,10 @@ class Movie extends Model
     public function addedBy(){
         return $this->belongsTo(Member::class, 'poster_id');
     }
+    //target pivot table
+    public function members(){
+        return $this->belongsToMany(Member::class, 'saved_movies');
+    }
 
     public function genre(){
         return $this->belongsTo(Genre::class);

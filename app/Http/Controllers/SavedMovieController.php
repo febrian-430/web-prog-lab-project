@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\SavedMovie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Movie;
+use Illuminate\Support\Facades\Auth;
 
 class SavedMovieController extends Controller
 {
@@ -16,9 +18,9 @@ class SavedMovieController extends Controller
     public function index()
     {
         //
-        $id = Auth::user()->id;
-        $savedMovies = SavedMovie::where($id);
-        // return view()->with('savedMovies, $savedMovies);
+        $user = Auth::user();
+        $saved = $user->movies;
+        return view('member.saved')->with('saved', $saved);
     }
 
     /**
@@ -37,9 +39,21 @@ class SavedMovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Movie $movie)
     {
-        //
+        $user = Auth::user();
+        $user->movies()->attach($movie->id);
+        return view('home', [
+            'movies' => Movie::paginate(10),
+            'notification' => 'Saved movie'.$movie->title
+        ]);
+    }
+
+    public function storeFromShow(Movie $movie)
+    {
+        $user = Auth::user();
+        $user->movies()->attach($movie->id);
+        return redirect()->route('movie', [$movie])->with('status', 'Movie saved');
     }
 
     /**
@@ -82,8 +96,20 @@ class SavedMovieController extends Controller
      * @param  \App\SavedMovie  $savedMovie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SavedMovie $savedMovie)
+    public function destroy(Movie $movie)
     {
-        //
+        $user = Auth::user();
+        $user->movies()->detach($movie->id);
+        return view('home', [
+            'movies' => Movie::paginate(10),
+            'notification' => 'Unsaved movie '.$movie->title
+        ]);
+    }
+
+    public function destroyFromShow(Movie $movie)
+    {
+        $user = Auth::user();
+        $user->movies()->detach($movie->id);
+        return redirect()->route('movie', [$movie])->with('status', 'Movie unsaved');
     }
 }

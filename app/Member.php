@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class Member extends Authenticatable
 {
@@ -19,8 +20,13 @@ class Member extends Authenticatable
         'password', 'remember_token'
     ];
     //
-    public function savedMovies(){
-        return $this->hasMany(SavedMovie::class);
+
+    public function hasMovieInSave(Movie $movie){
+        return $this->movies->contains($movie) ? true : false;
+    }
+    //target pivot table
+    public function movies(){
+        return $this->belongsToMany(Movie::class, 'saved_movies');
     }
 
     public function messages(){

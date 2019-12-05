@@ -69,7 +69,7 @@ Route::group(['middleware' => ['admin']], function () {
 
 
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'home' => false]);
 
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');

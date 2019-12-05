@@ -26,11 +26,8 @@ Route::group(['middleware' => ['guest']], function () {
 
 Route::group(['middleware' => ['admin']], function () {
     Route::prefix('/manage')->group(function () {
-
-
-
         Route::group(['prefix' => 'genres'], function(){
-            Route::get('/', 'GenreController@index');
+            Route::get('/', 'GenreController@index')->name('genreMaster');
             Route::get('/add', 'GenreController@create');
             Route::post('/add', 'GenreController@store');
             Route::get('/{genre}', 'GenreController@show');
@@ -42,9 +39,9 @@ Route::group(['middleware' => ['admin']], function () {
         });
 
         Route::group(['prefix' => 'members'], function(){
-            Route::get('/', 'MemberController@index');
-            Route::get('/add', 'MemberController@create');
-            Route::post('/add', 'MemberController@store');
+            Route::get('/', 'MemberController@index')->name('memberMaster');
+            Route::get('/add', 'MemberController@createByAdmin');
+            Route::post('/add', 'MemberController@storeByAdmin');
             Route::get('/{member}', 'MemberController@show');
 
             Route::get('/{member}/edit', 'MemberController@edit');
@@ -54,7 +51,7 @@ Route::group(['middleware' => ['admin']], function () {
         });
 
         Route::group(['prefix' => 'movies'], function () {
-            Route::get('/', 'MovieController@index');
+            Route::get('/', 'MovieController@index')->name('movieMaster');
             Route::get('/add', 'MovieController@create');
             Route::post('/add', 'MovieController@store');
             Route::get('/{movie}', 'MovieController@show');

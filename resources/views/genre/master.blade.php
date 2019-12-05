@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<a href="/manage/genres/add">Add genre</a>
 <table class = "genre-table">
         <tr>
             <th>#</th>
@@ -14,7 +15,7 @@
         @foreach ($genres as $genre)
         <tr>
             <td>{{$genre->id}}</td>
-            <td>{{$genre->genre_name}}</td>
+            <td>{{$genre->name}}</td>
             <td><a href="/manage/genres/{{ $genre->id }}/edit">Edit</a>
                 <form action="/manage/genres/{{ $genre->id }}" method="post">
                     @method('delete')

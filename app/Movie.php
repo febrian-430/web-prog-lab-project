@@ -10,7 +10,7 @@ class Movie extends Model
 
     protected $fillable =
     [
-        'title', 'genre_id', 'description', 'rating', 'movie_image', 'member_id'
+        'title', 'genre_id', 'description', 'rating', 'movie_image', 'poster_id'
     ];
     //
     // public function members(){

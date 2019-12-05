@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form action="/register" method="post" enctype="multipart/form-data">
+    <form action="/{{$postRedirectTo}}" method="post" enctype="multipart/form-data">
         @csrf
         <table id = "register-form">
             <tr>

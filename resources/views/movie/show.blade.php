@@ -6,11 +6,12 @@
 
 @section('content')
     <div>
-        <img src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
+        <img height=30% width=30% src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
         <p>Title {{$movie->title}}</p>
         <p>Genre {{$movie->genre->name}}</p>
         <p>Description {{$movie->description}}</p>
         <p>Rating: {{$movie->rating}}</p>
+        @if(Auth::user()->role == "Member")
         <div>
             @if(Auth::user()->hasMovieInSave($movie))
                 <form action="/movie/{{$movie->id}}/unsave" method="post">
@@ -25,6 +26,7 @@
                 </form>
             @endif
         </div>
+        @endif
     </div>
 
     <div id="comment-section">

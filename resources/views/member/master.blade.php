@@ -8,6 +8,9 @@
 @isset($notification)
     <div>{{$notification}}</div>
 @endisset
+
+<a href="/manage/members/add">Add User</a>
+
 <table>
         <tr>
             <td>#</td>
@@ -30,7 +33,7 @@
             <td>{{$member->gender}}</td>
             <td>{{$member->address}}</td>
             <td>
-                <img width="100px" height="100px" src={{"storage/images/".$member->profile_picture}} alt="">
+                <img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt="">
             </td>
             <td>{{$member->birthday}}</td>
             <<td><a href="/manage/members/{{ $member->id }}/edit">Edit</a>

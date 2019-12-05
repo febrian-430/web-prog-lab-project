@@ -42,17 +42,17 @@ class GenreController extends Controller
     {
         //
         $validation = [
-            'genre_name' => 'required|unique:genres,genre_name|alpha_dash'
+            'genre_name' => 'required|unique:genres,name|alpha_dash'
         ];
         $this->validate($request, $validation);
 
         $genre = new Genre();
-        $genre->genre_name = $request->genre_name;
+        $genre->name = $request->genre_name;
         $genre->save();
 
         return view('genre.master',
         [
-            'notification' => 'Genre '.$genre->genre_name. ' has been added',
+            'notification' => 'Genre '.$genre->name. ' has been added',
             'genres' => Self::fetchAll()
         ]);
     }
@@ -93,11 +93,11 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $validation = [
-            'genre_name' => 'required|unique:genres,genre_name,'.$genre->id.'|alpha_dash'
+            'genre_name' => 'required|unique:genres,name,'.$genre->id.'|alpha_dash'
         ];
         $this->validate($request, $validation);
         $prev_name = $genre->genre_name;
-        $genre->genre_name = $request->genre_name;
+        $genre->name = $request->genre_name;
         $genre->save();
         return view('genre.master',
         [

@@ -35,6 +35,17 @@ class MemberController extends Controller
     {
         return view('registration');
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+
+    public function createByAdmin()
+    {
+        return view('member.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -72,9 +83,48 @@ class MemberController extends Controller
         $member->role = "Member";
         $member->save();
 
-        return view('registration', [
-            'success' => 'Registration completed'
-        ]);
+        Auth::login($member);
+
+        return redirect()->route('home')->with('status', 'Welcome to our website!');
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeByAdmin(Request $request)
+    {
+        $validation = [
+            'name' => 'required|max:100',
+            'email' => 'required|email|unique:members,email',
+            'password' => 'required|confirmed|min:6|alpha_num',
+            'password_confirmation' => 'required|min:6|alpha_num',
+            'gender' => 'required|in:Male, Female',
+            'address' => 'required',
+            'birthday' => 'required|date',
+            'profile_picture' => 'required|mimes:jpeg,png,jpg'
+        ];
+        $this->validate($request, $validation);
+
+        $photo = $request->file('profile_picture');
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/images/memberImg');
+        $photo->move($storage_destination, $photo_name);
+
+        $member = new Member();
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->password = Hash::make($request->password);
+        $member->gender = $request->gender;
+        $member->address = $request->address;
+        $member->birthday = $request->birthday;
+        $member->profile_picture = $photo_name;
+        $member->role = "Member";
+        $member->save();
+
+
+        return redirect()->route('memberMaster')->with('status', 'Added new member '.$member->name);
     }
 
     /**

@@ -5,10 +5,8 @@
 @endsection
 
 @section('content')
-    @isset($notification)
-        <div>{{ $notification }}</div>
-    @endisset
 
+    <a href="/manage/movies/add">Add movie</a>
     <table>
         <tr>
             <td>#</td>
@@ -31,7 +29,7 @@
                 <a href="/movie/{{$movie->id}}">{{$movie->title}}</a>
             </td>
             <td>
-                <img src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
+                <img height=300px width=300px src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
             </td>
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>

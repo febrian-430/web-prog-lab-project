@@ -5,17 +5,17 @@
 @endsection
 
 @section('content')
-    <form action="/register" method="post" enctype="multipart/form-data">
+    <form action="/manage/members/add" method="post" enctype="multipart/form-data">
         @csrf
         <table id = "register-form">
             <tr>
                 <td>Fullname </td>
-                <td><input type="text" name="name"></td>
+                <td><input type="text" name="name" value="{{old('name')}}"></td>
                 <td>{{$errors->first('name')}}</td>
             </tr>
             <tr>
                 <td>Email </td>
-                <td><input type="email" name="email"></td>
+                <td><input type="email" name="email" value="{{old('email')}}"></td>
                 <td>{{$errors->first('email')}}</td>
             </tr>
             <tr>
@@ -37,13 +37,13 @@
             </tr>
             <tr>
                 <td>Address </td>
-                <td><textarea name="address" cols="30" rows="10"></textarea>
+                <td><textarea name="address" cols="30" rows="10">{{ old('address') }}</textarea>
                 </td>
                 <td>{{$errors->first('address')}}</td>
             </tr>
             <tr>
                 <td>Date of Birth </td>
-                <td><input type="date" name="birthday">
+                <td><input type="date" name="birthday" value="{{old('birthday')}}">
                 </td>
                 <td>{{$errors->first('birthday')}}</td>
             </tr>
@@ -54,10 +54,6 @@
             </tr>
         </table>
 
-        <input type="submit" value="Submit">
-
-        @isset($success)
-            {{$success}}
-        @endisset
+        <input type="submit" value="Add user">
 
     </form>

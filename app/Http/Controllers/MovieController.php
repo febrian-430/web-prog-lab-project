@@ -145,7 +145,7 @@ class MovieController extends Controller
         $movie->rating =  $request->rating;
         $movie->movie_image =  $photo_name;
         $movie->genre_id =  $request->genre;
-        $movie->member_id =  '1'; //to be corrected
+        $movie->member_id =  Auth::user()->id;
         $movie->save();
 
         $movies = Self::fetchAll();

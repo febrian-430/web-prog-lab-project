@@ -23,7 +23,7 @@
                     <select name="genre" id="genre">
                         <option value="" selected disabled hidden>Choose genre</option>
                         @foreach ($genres as $genre)
-                           <option value="{{$genre->id}}">{{$genre->genre_name}}</option>
+                           <option value="{{$genre->id}}">{{$genre->name}}</option>
                         @endforeach
                     </select>
                 </td>

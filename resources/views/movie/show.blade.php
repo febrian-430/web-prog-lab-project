@@ -6,8 +6,9 @@
 
 @section('content')
     <div>
-        <img src="" alt="">
+        <img src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
         <p>Title {{$movie->title}}</p>
+        <p>Genre {{$movie->genre->name}}</p>
         <p>Description {{$movie->description}}</p>
         <p>Rating: {{$movie->rating}}</p>
         <div>

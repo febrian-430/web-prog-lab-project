@@ -23,11 +23,15 @@
         @foreach ($movies as $movie)
         <tr>
             <td>{{$movie->id}}</td>
-            <td>{{$movie->addedBy->name}}</td>
-            <td>{{$movie->genre->genre_name}}</td>
-            <td>{{$movie->title}}</td>
             <td>
-                <img src={{"/storage/app/public/images/movieImg/".$movie->movie_image}} alt="">
+                <a href="/member/{{$movie->addedBy->id}}">{{$movie->addedBy->name}}</a>
+            </td>
+            <td>{{$movie->genre->name}}</td>
+            <td>
+                <a href="/movie/{{$movie->id}}">{{$movie->title}}</a>
+            </td>
+            <td>
+                <img src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
             </td>
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>

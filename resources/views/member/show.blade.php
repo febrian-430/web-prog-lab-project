@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt="">
     <div>
         Name: {{$member->name}}
     </div>
@@ -14,10 +15,7 @@
     <div>
         Address: {{$member->address}}
     </div>
-    <div>
-        <img width="100px" height="100px" src={{"storage/images/".$member->profile_picture}} alt="">
-    </div>
-    @if ($member->id == Auth::user()->id)
+    @if ($member->id == Auth::user()->id || Auth::user()->role == "Administrator")
         <div>
             <a href="/member/{{$member->id}}/edit">Update Profile</a>
         </div>

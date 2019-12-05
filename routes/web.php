@@ -84,8 +84,11 @@ Route::group(['prefix' => 'inbox'], function () {
 });
 
 Route::group(['prefix' => 'member'], function () {
-    Route::get('/{member}', 'MemberController@show');
+    Route::get('/{member}', 'MemberController@show')->name('member');
     Route::post('/{member}', 'MessageController@store');
+
+    Route::get('/{member}/edit', 'MemberController@edit_self');
+    Route::post('/{member}/edit', 'MemberController@update_self');
 });
 
 Route::group(['prefix' => 'movie'], function () {

@@ -58,7 +58,7 @@ class MemberController extends Controller
 
         $photo = $request->file('profile_picture');
         $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
-        $storage_destination = storage_path('/app/public/images');
+        $storage_destination = storage_path('/app/public/images/memberImg');
         $photo->move($storage_destination, $photo_name);
 
         $member = new Member();
@@ -102,7 +102,7 @@ class MemberController extends Controller
     }
 
     public function edit_self(){
-        $member = Auth::member();
+        $member = Auth::user();
         return view('member.edit')->with('member', $member);
     }
 
@@ -152,6 +152,40 @@ class MemberController extends Controller
         ]);
     }
 
+    public function update_self(Request $request, Member $member)
+    {
+        //
+        $validation = [
+            'name' => 'required|max:100',
+            'email' => 'required|email|unique:members,email,'.$member->id,
+            'password' => 'required|confirmed|min:6|alpha_num',
+            'password_confirmation' => 'required|min:6|alpha_num',
+            'gender' => 'required|in:Male, Female',
+            'address' => 'required',
+            'birthday' => 'required|date',
+            'profile_picture' => 'required|mimes:jpeg,png,jpg',
+            'role' => 'required'
+        ];
+        $this->validate($request, $validation);
+
+        $photo = $request->file('profile_picture');
+        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/storage/images/memberImg');
+        $photo->move($storage_destination, $photo_name);
+
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->password = Hash::make($request->password);
+        $member->gender = $request->gender;
+        $member->address = $request->address;
+        $member->birthday = $request->birthday;
+        $member->profile_picture = $photo_name;
+        $member->role = $request->role;
+        $member->save();
+
+        return redirect()->route('member', [$member])->with('status', 'Update successful');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -165,7 +199,7 @@ class MemberController extends Controller
         Member::destroy($member->id);
         return view('member.master',
         [
-            'notification' => 'User '.$name.' has been deleted'
+            'notification' => 'Member '.$name.' has been deleted'
         ]);
     }
 }

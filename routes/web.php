@@ -13,9 +13,7 @@
 
 use App\Http\Controllers\SavedMovieController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => ['guest']], function () {
     Route::post('/register', 'MemberController@store');
@@ -66,7 +64,7 @@ Route::group(['middleware' => ['admin']], function () {
 
 
 
-Auth::routes(['register' => false, 'home' => false]);
+Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');

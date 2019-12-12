@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-
-    <a href="/manage/movies/add">Add movie</a>
-    <table>
+    <div class="col-md-13  text-center">
+        <a href="/manage/movies/add" class="btn btn-primary">Add movie</a>
+    </div>
+    <table class="table table-striped">
         <tr>
             <td>#</td>
             <td>Posted By</td>
@@ -33,32 +34,15 @@
             </td>
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
-            <<td><a href="/manage/movies/{{ $movie->id }}/edit">Edit</a>
+            <td><a href="/manage/movies/{{ $movie->id }}/edit" class="btn btn-success">Edit</a>
                 <form action="/manage/movies/{{ $movie->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="delete-btn">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
         @endforeach
     </table>
     {{$movies->links()}}
-
-    {{-- <script>
-            $(document).ready(function(){
-                $('.edit-btn').click(function(){
-                    var row = $(this).closest('tr');
-                    var id = row.find('td:eq(0)').text();
-                    window.location.replace('movies/' + id + '/edit');
-                });
-
-                $('.delete-btn').click(function(){
-                    var row = $(this).closest('tr');
-                    var id = row.find('td:eq(0)').text();
-                    window.location.replace('movies/' + id + '/delete');
-                });
-
-            });
-        </script> --}}
 @endsection

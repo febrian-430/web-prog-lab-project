@@ -57,3 +57,4 @@
         <input type="submit" value="Add user">
 
     </form>
+@endsection

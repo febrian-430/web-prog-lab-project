@@ -5,13 +5,12 @@
 @endsection
 
 @section('content')
-@isset($notification)
-    <div>{{$notification}}</div>
-@endisset
+<div class="col-md-13  text-center">
+    <a href="/manage/members/add" class="btn btn-primary">Add User</a>
+</div>
 
-<a href="/manage/members/add">Add User</a>
 
-<table>
+<table class="table table-striped">
         <tr>
             <td>#</td>
             <td>Full name</td>
@@ -36,11 +35,11 @@
                 <img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt="">
             </td>
             <td>{{$member->birthday}}</td>
-            <<td><a href="/manage/members/{{ $member->id }}/edit">Edit</a>
+            <td><a href="/manage/members/{{ $member->id }}/edit" class="btn btn-success">Edit</a>
                 <form action="/manage/members/{{ $member->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="delete-btn">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>

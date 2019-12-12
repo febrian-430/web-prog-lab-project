@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <form action="/{{$postRedirectTo}}" method="post" enctype="multipart/form-data">
+    <form action="/register" method="post" enctype="multipart/form-data">
         @csrf
-        <table id = "register-form">
+        <table id="register-form">
             <tr>
                 <td>Fullname </td>
                 <td><input type="text" name="name" value="{{old('name')}}"></td>
@@ -61,3 +61,4 @@
         @endisset
 
     </form>
+@endsection

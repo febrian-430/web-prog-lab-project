@@ -5,26 +5,32 @@
 @endsection
 
 @section('content')
-<a href="/manage/genres/add">Add genre</a>
-<table class = "genre-table">
+    <div class="col-md-13 text-center">
+        <a href="/manage/members/add" class="btn btn-primary">Add Genre</a>
+    </div>
+    <table class = "table table-striped container">
+        <thead>
         <tr>
-            <th>#</th>
-            <th>Genre</th>
-            <th>Action</th>
+            <th scope="col" class="align-middle">#</th>
+            <th scope="col" class="align-middle">Genre</th>
+            <th scope="col" class="align-middle">Action</th>
         </tr>
+        </thead>
+        <tbody>
         @foreach ($genres as $genre)
         <tr>
-            <td>{{$genre->id}}</td>
-            <td>{{$genre->name}}</td>
-            <td><a href="/manage/genres/{{ $genre->id }}/edit">Edit</a>
+            <td class="align-middle">{{$genre->id}}</td>
+            <td class="align-middle">{{$genre->name}}</td>
+            <td class="align-middle"><a href="/manage/genres/{{ $genre->id }}/edit" class="btn btn-success">Edit</a>
                 <form action="/manage/genres/{{ $genre->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="delete-btn">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
         @endforeach
-</table>
+    </tbody>
+    </table>
 
 @endsection

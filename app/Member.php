@@ -24,6 +24,11 @@ class Member extends Authenticatable
     public function hasMovieInSave(Movie $movie){
         return $this->movies->contains($movie) ? true : false;
     }
+
+    public function currentUser(){
+        return Auth::user();
+    }
+
     //target pivot table
     public function movies(){
         return $this->belongsToMany(Movie::class, 'saved_movies');

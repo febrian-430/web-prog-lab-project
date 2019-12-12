@@ -27,7 +27,7 @@
         @foreach ($members as $member)
         <tr>
             <td>{{$member->id}}</td>
-            <td>{{$member->name}}</td>
+            <td><a href="/member/{{$member->id}}">{{$member->name}}</a></td>
             <td>{{$member->email}}</td>
             <td>{{$member->role}}</td>
             <td>{{$member->gender}}</td>

@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     //
+
     protected $fillable = [
-        'genre_name'
+        'name'
     ];
 
     public function movies(){
-        return $this->belongsTo(Movie::class);
+        return $this->hasMany(Movie::class);
     }
 }

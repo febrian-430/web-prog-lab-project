@@ -18,12 +18,12 @@ class MemberTableSeeder extends Seeder
         [
                 'name' => 'admin',
                 'gender' => 'Male',
-                'email' => 'diman@admin',
+                'email' => 'admin@admin',
                 'password' => Hash::make('adminadmin'),
                 'birthday' => '2019-11-27',
                 'profile_picture' => 'none.jpg',
                 'role' => 'Administrator',
-            'address' => 'none'
+                'address' => 'none'
             ]);
         $member = Member::create(
         [

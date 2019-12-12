@@ -15,7 +15,7 @@ class MovieTableSeeder extends Seeder
         //
         Movie::create([
             'title' => 'Joker',
-            'genre_id' => '2',
+            'genre_id' => 1,
             'description' => 'Brah',
             'rating' => '10',
             'movie_image' => 'joker.jpg',
@@ -24,7 +24,7 @@ class MovieTableSeeder extends Seeder
 
         Movie::create([
             'title' => 'The Dark Knight',
-            'genre_id' => '1',
+            'genre_id' => 1,
             'description' => 'Brah',
             'rating' => '10',
             'movie_image' => 'batman.jpg',

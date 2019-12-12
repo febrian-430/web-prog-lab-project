@@ -13,14 +13,20 @@
 
                 <div class="card-body">
                 @if($movies->isEmpty())
-                    <p>No saved movies</p>
+                    <p>No movies</p>
                 @else
+                    <div>
+                        <form action="">
+                            <input type="text" name="search" id="search" placeholder="Search movie by title or genre">
+                            <button type="input">Search</button>
+                        </form>
+                    </div>
                     @foreach ($movies as $movie)
                         <div>
                             <a href="/movie/{{$movie->id}}">
                                 <p>{{$movie->title}}</p>
                             </a>
-                            <p>{{$movie->genre->genre_name}}</p>
+                            <p>{{$movie->genre->name}}</p>
                             <p>{{$movie->description}}</p>
                             <p>{{$movie->rating}}</p>
 

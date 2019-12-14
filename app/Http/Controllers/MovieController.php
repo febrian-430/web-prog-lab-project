@@ -51,8 +51,6 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $admin = Auth::user();
         $validation =
         [
             'title' => 'required',
@@ -134,16 +132,19 @@ class MovieController extends Controller
         ];
 
         $this->validate($request, $validation);
+        $currentImage = $movie->movie_image;
 
-        $photo = $request->file('movie_image');
-        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        Storage::delete($currentImage);
+
+        $image = $request->file('movie_image');
+        $image_name = Uuid::uuid(). '.' . $image->getClientOriginalExtension();
         $storage_destination = storage_path('/app/public/images/movieImg');
-        $photo->move($storage_destination, $photo_name);
+        $image->move($storage_destination, $image_name);
 
         $movie->title =  $request->title;
         $movie->description =  $request->description;
         $movie->rating =  $request->rating;
-        $movie->movie_image =  $photo_name;
+        $movie->movie_image =  $image_name;
         $movie->genre_id =  $request->genre;
         $movie->poster_id =  Auth::user()->id;
         $movie->save();

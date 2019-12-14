@@ -183,10 +183,13 @@ class MemberController extends Controller
         ];
         $this->validate($request, $validation);
 
-        $photo = $request->file('profile_picture');
-        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
+        $currentImage = $member->profile_picture;
+        unlink(storage_path('/app/public/images/memberImg/'.$currentImage));
+
+        $image = $request->file('profile_picture');
+        $image_name = Uuid::uuid(). '.' . $image->getClientOriginalExtension();
         $storage_destination = storage_path('/app/public/images/memberImg');
-        $photo->move($storage_destination, $photo_name);
+        $image->move($storage_destination, $image_name);
 
         $member->name = $request->name;
         $member->email = $request->email;
@@ -194,7 +197,7 @@ class MemberController extends Controller
         $member->gender = $request->gender;
         $member->address = $request->address;
         $member->birthday = $request->birthday;
-        $member->profile_picture = $photo_name;
+        $member->profile_picture = $image_name;
         $member->role = $request->role;
         $member->save();
 
@@ -222,10 +225,13 @@ class MemberController extends Controller
         ];
         $this->validate($request, $validation);
 
-        $photo = $request->file('profile_picture');
-        $photo_name = Uuid::uuid(). '.' . $photo->getClientOriginalExtension();
-        $storage_destination = storage_path('/app/public/storage/images/memberImg');
-        $photo->move($storage_destination, $photo_name);
+        $currentImage = $member->profile_picture;
+        unlink(storage_path('/app/public/images/memberImg/'.$currentImage));
+
+        $image = $request->file('profile_picture');
+        $image_name = Uuid::uuid(). '.' . $image->getClientOriginalExtension();
+        $storage_destination = storage_path('/app/public/images/memberImg');
+        $image->move($storage_destination, $image_name);
 
         $member->name = $request->name;
         $member->email = $request->email;
@@ -233,7 +239,7 @@ class MemberController extends Controller
         $member->gender = $request->gender;
         $member->address = $request->address;
         $member->birthday = $request->birthday;
-        $member->profile_picture = $photo_name;
+        $member->profile_picture = $image_name;
         $member->role = $request->role;
         $member->save();
 

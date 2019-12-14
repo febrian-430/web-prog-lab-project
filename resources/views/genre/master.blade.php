@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="col-md-13 text-center">
-        <a href="/manage/members/add" class="btn btn-primary">Add Genre</a>
+        <a href="/manage/genres/add" class="btn btn-primary">Add Genre</a>
     </div>
     <table class = "table table-striped container">
         <thead>

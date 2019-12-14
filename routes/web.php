@@ -69,7 +69,7 @@ Auth::routes(['register' => false]);
 Route::group(['prefix' => 'profile'], function () {
     Route::get('/', 'MemberController@show_self');
     Route::get('/edit', 'MemberController@edit_self');
-    Route::post('/', 'MemberController@update_self');
+    Route::put('/', 'MemberController@update_self');
 });
 
 Route::group(['prefix' => 'home'], function () {

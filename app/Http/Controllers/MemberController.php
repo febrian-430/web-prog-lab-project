@@ -139,6 +139,10 @@ class MemberController extends Controller
         return view('member.show')->with('member', $member);
     }
 
+    public function show_self(){
+        return view('member.show')->with('member', Auth::user());
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -153,7 +157,7 @@ class MemberController extends Controller
 
     public function edit_self(){
         $member = Auth::user();
-        return view('member.edit')->with('member', $member);
+        return view('member.editProfile')->with('member', $member);
     }
 
     /**
@@ -233,7 +237,7 @@ class MemberController extends Controller
         $member->role = $request->role;
         $member->save();
 
-        return redirect()->route('member', [$member])->with('status', 'Update successful');
+        return redirect()->route('profile', [$member])->with('status', 'Update successful');
     }
 
     /**

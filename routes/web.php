@@ -66,6 +66,12 @@ Route::group(['middleware' => ['admin']], function () {
 
 Auth::routes(['register' => false]);
 
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('/', 'MemberController@show_self');
+    Route::get('/edit', 'MemberController@edit_self');
+    Route::post('/', 'MemberController@update_self');
+});
+
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/{movie}', 'SavedMovieController@store');

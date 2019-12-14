@@ -15,12 +15,15 @@
     <div>
         Address: {{$member->address}}
     </div>
-    @if ($member->id == Auth::user()->id || Auth::user()->role == "Administrator")
+    @if($member->id == Auth::user()->id)
+        <div>
+            <a href="/profile/edit">Update Profile</a>
+        </div>
+    @elseif (Auth::user()->role == "Administrator")
         <div>
             <a href="/member/{{$member->id}}/edit">Update Profile</a>
         </div>
     @endif
-
 
     @if($member->id != Auth::user()->id)
         <div>

@@ -22,12 +22,11 @@ class HomeController extends Controller
     public function index()
     {
         // where('title' , 'LIKE', "%$search%")->
-        $search = request()->search;
-        $movies = Movie::
-        whereHas('genre', function($query) use ($search){
+        $search = request('search');
+        $movies = Movie::Where('title', 'LIKE', "%$search%")->
+        orWhereHas('genre', function($query) use ($search){
                 $query->where('name', 'LIKE', "%$search%");
-        })->
-        orWhere('title', 'LIKE', "%$search%")->paginate(10);
+        })->paginate(10);
         $movies->appends(['search' => $search]);
         return view('home', ['movies' => $movies]);
     }

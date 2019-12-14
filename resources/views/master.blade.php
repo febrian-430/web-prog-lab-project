@@ -23,7 +23,7 @@
                 </li>
                 @if(Auth::user())
                     <li class="nav-item">
-                            <a class="nav-link" href="/inbox">Inbox</a>
+                        <a class="nav-link" href="/inbox">Inbox</a>
                     </li>
                     @if(Auth::user()->role == "Member")
                     <li class="nav-item">
@@ -31,24 +31,28 @@
                     </li>
                     @elseif(Auth::user()->role == "Administrator")
                         <li class="nav-item dropdown">
-                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Manage
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Movies</a>
-                            <a class="dropdown-item" href="#">Members</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Genres</a>
-                          </div>
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Manage
+                                <span class="caret"></span></button>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/manage/movies">Movies</a></li>
+                            <li><a class="dropdown-item" href="/manage/members">Members</a></li>
+                            <li><a class="dropdown-item" href="/manage/genres">Genres</a></li>
+                          </ul>
                         </li>
                     @endif
                 @endif
               </ul>
               @if(Auth::user())
+              <div class="form-inline my-2 my-lg-0">
+                <label class="nav-link">{{ date('Y-m-d H:i:s') }}</a>
+            </div>
+              <div class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-outline-primary my-2 my-sm-0 m-3" href="/profile">Profile</a>
+              </div>
                 <div class="form-inline my-2 my-lg-0">
                       <form  action="/logout" method="post">
                           @csrf
-                          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Logout</button>
+                          <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
                       </form>
                 </div>
               @else
@@ -66,13 +70,13 @@
           </nav>
 
         @isset($notification)
-            <div class="alert alert-dark" role="alert">{{$notification}}</div>
+            <div class="alert alert-success" role="alert">{{$notification}}</div>
         @endisset
 
     {{-- displaying status for comment, because redirect --}}
 
         @if (session('status'))
-        <div class="alert alert-dark" role="alert">
+        <div class="alert alert-success" role="alert">
             {{ session('status') }}
         </div>
         @endif

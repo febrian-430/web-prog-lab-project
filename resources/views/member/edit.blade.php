@@ -64,7 +64,6 @@
             <tr>
                 <td>Profile Picture</td>
                 <td><img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt=""></td>
-                {{-- <td>{{ HTML::image('storage/images/memberImg/'.$member->profile_picture, 'profile_picture') }}</td> --}}
                 <td><input type="file" name="profile_picture"></td>
                 <td>{{$errors->first('profile_picture')}}</td>
             </tr>
@@ -72,8 +71,5 @@
 
         <input type="submit" value="Update">
 
-        @isset($success)
-            {{$success}}
-        @endisset
-
     </form>
+@endsection

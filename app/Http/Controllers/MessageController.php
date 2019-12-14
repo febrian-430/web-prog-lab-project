@@ -54,7 +54,7 @@ class MessageController extends Controller
             'receiver_id' => $member->id
         ]);
 
-        return view('home', ['notification' => 'Your message has been sent to '.$member->name]);
+        return redirect()->route('member', [$member])->with(['status' => 'Your message has been sent to '.$member->name]);
     }
 
     /**

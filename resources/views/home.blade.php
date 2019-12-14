@@ -9,9 +9,9 @@
                     <p>No movies</p>
                 @else
                     <div>
-                        <form action="">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search by title or genre" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="input    ">Search</button>
+                        <form>
+                            <input name ="search" class="form-control mr-sm-2" type="text" placeholder="Search by title or genre" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="input">Search</button>
                         </form>
                     </div>
                     @foreach ($movies as $movie)

@@ -25,7 +25,7 @@ class HomeController extends Controller
         $search = request('search');
         $movies = Movie::Where('title', 'LIKE', "%$search%")->
         orWhereHas('genre', function($query) use ($search){
-                $query->where('name', 'LIKE', "%$search%");
+                $query->where('name', 'LIKE', "$search");
         })->paginate(10);
         $movies->appends(['search' => $search]);
         return view('home', ['movies' => $movies]);

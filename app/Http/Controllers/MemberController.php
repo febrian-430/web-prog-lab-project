@@ -7,9 +7,30 @@ use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Response;
 
 class MemberController extends Controller
 {
+
+    public function login(Request $request){
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $member = Auth::user();
+            Auth::login($member);
+
+            if($request->remember){
+                $response = new Response(redirect()->route('home')->with('status', 'Welcome back, '. $member->name));
+                $response->withCookie('USER_COOKIE', $member, 120);
+                return $response;
+            }
+            return redirect()->route('home')->with('status', 'Welcome back, '. $member->name);
+        }
+        return view('login')->with('notification', 'Wrong email or password');
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('home');
+    }
 
     private function fetchAll(){
         return Member::paginate(10);

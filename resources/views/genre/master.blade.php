@@ -22,7 +22,7 @@
             <td class="align-middle">{{$genre->id}}</td>
             <td class="align-middle">{{$genre->name}}</td>
             <td class="align-middle">
-                <a href="/manage/genres/{{ $genre->id }}/edit" class="btn btn-success m-2" style="float:left">Edit</a>
+                <a href="/manage/genres/{{ $genre->id }}/edit" class="btn btn-success" style="float:left">Edit</a>
                 <form action="/manage/genres/{{ $genre->id }}" method="post">
                     @method('delete')
                     @csrf

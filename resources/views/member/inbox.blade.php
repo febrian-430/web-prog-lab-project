@@ -6,23 +6,30 @@
 
 @section('content')
     @if($messages->isEmpty())
-        <div>No message</div>
+        <p class="text-center mt-4">No message</p>
     @else
+    <div class="container mt-2">
         @foreach ($messages as $message)
-            <img src="" alt="">
-            <p><a href="/member/{{$message->sender->id}}">{{$message->sender->name}}</a></p>
-            <p>Posted at {{$message->created_at}}</p>
-            Message: {{$message->message}}
+        <div class="row justify-content-around">
+            <div class="col-5">
+                <img class="float-left" height="100px" width="100px" src={{"/storage/images/memberImg/".$message->sender->profile_picture}} alt="">
+                <h4 class="ml-4"><a href="/member/{{$message->sender->id}}">{{$message->sender->name}}</a></h4>
+                <h6 class="ml-4">Posted at {{$message->created_at}}</h6>
+                <br>
+                <p>Message: {{$message->message}}</p>
+            </div>
             <div>
                 <form action="/inbox/{{$message->id}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit">
+                    <button type="submit" class="btn btn-danger float-right">
                         Remove
                     </button>
                 </form>
             </div>
+        </div>
         @endforeach
     {{$messages->links()}}
+    </div>
     @endif
 @endsection

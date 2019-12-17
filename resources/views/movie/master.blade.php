@@ -38,7 +38,7 @@
                 <form action="/manage/movies/{{ $movie->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="btn btn-danger ml-1">Delete</button>
+                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
                 </form>
             </td>
         </tr>

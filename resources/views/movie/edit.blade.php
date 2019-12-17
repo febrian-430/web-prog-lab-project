@@ -8,46 +8,43 @@
 <form action="/manage/movies/{{$movie->id}}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
-    <table>
-        <tr>
-            <td>
-                Title
-            </td>
-            <td>
-                <input type="text" name="title" id="title" value="{{ $movie->title }}">
-            </td>
-            <td>{{$errors->first('title')}}</td>
-        </tr>
-        <tr>
-            <td>Genre</td>
-            <td>
-                <select name="genre" id="genre">
-                    <option value="" selected disabled hidden>Choose genre</option  >
-                    @foreach ($genres as $genre )
-                        <option value="{{$genre->id}}">{{$genre->name}}</option>
+    <div class="container w-50">
+        <div class="row justify-content-center">
+            <div class="col-12 form-group">
+                <label for="title">Title</label>
+                <input class="form-control" type="text" name="title" id="title" value="{{$movie->title}}">
+                <div class="invalid-feedback d-block">{{$errors->first('title')}}</div>
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="genre">Genre</label>
+                <select name="genre" id="genre" class="custom-select">
+                    <option value="" selected disabled hidden>Genre</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{$genre->id}}" {{$movie->genre->name == $genre->name ? 'selected' : ''}}>{{$genre->name}}</option>
                     @endforeach
                 </select>
-            </td>
-            <td>{{$errors->first('genre')}}</td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td>
-                <textarea name="description" id="description" cols="30" rows="10">{{$movie->description}}</textarea>
-            </td>
-            <td>{{$errors->first('description')}}</td>
-        </tr>
-        <tr>
-            <td>Rating</td>
-            <td><input type="text" name="rating" id="rating" value="{{ $movie->rating }}"></td>
-            <td>{{$errors->first('rating')}}</td>
-        </tr>
-        <tr>
-            <td>Picture</td>
-            <td><input type="file" name="movie_image" id="movie_image"></td>
-            <td>{{$errors->first('movie_image')}}</td>
-        </tr>
+                <div class="invalid-feedback d-block">{{$errors->first('genre')}}</div>
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{$movie->description}}</textarea>
+                <div class="invalid-feedback d-block">{{$errors->first('description')}}</div>
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="rating">Rating</label>
+                <input class="form-control" type="text" name="rating" id="rating" value="{{$movie->rating}}">
+                <div class="invalid-feedback d-block">{{$errors->first('rating')}}</div>
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="">Movie Image</label>
+                <input class="form-control-file" type="file" name="movie_image" id="movie_image">
+                <div class="invalid-feedback d-block">{{$errors->first('movie_image')}}</div>
+            </div>
     </table>
-    <button type="submit">Update Movie</button>
+    <button type="submit" class="btn btn-primary">Add movie</button>
 </form>
 @endsection

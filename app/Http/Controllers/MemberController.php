@@ -81,7 +81,7 @@ class MemberController extends Controller
             'email' => 'required|email|unique:members,email',
             'password' => 'required|confirmed|min:6|alpha_num',
             'password_confirmation' => 'required|min:6|alpha_num',
-            'gender' => 'required|in:Male, Female',
+            'gender' => 'required|in:Male,Female',
             'address' => 'required',
             'birthday' => 'required|date',
             'profile_picture' => 'required|mimes:jpeg,png,jpg'

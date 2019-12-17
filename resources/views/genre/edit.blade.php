@@ -8,22 +8,16 @@
 <form action="/manage/genres/{{ $genre->id }}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
-    <table>
-        <tr>
-            <td>
-                Genre:
-            </td>
-            <td>
-                <input type="text" name="genre_name" value="{{ $genre->genre_name }}">
-            <td>
-                {{$errors->first('genre_name')}}
-            </td>
-        </tr>
-    </table>
-    <button type="submit">Edit Genre</button>
-    @isset($complete)
-        {{$complete}}
-    @endisset
+    <div class="container w-50">
+        <div class="row justify-content-center">
+            <div class="col-12 form-group">
+                <label for="">Genre</label>
+                <input class ="form-control" type="text" name="genre" id="genre" value = "{{old('genre')}}">
+                <div class="invalid-feedback d-block">{{$errors->first('genre')}}</div>
+            </div>
+            <button type="submit" class="btn btn-success ml-1">Edit Genre</button>
+        </div>
+    </div>
 </form>
 @endsection
-s
+

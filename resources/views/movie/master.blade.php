@@ -34,11 +34,11 @@
             </td>
             <td>{{$movie->description}}</td>
             <td>{{$movie->rating}}</td>
-            <td><a href="/manage/movies/{{ $movie->id }}/edit" class="btn btn-success">Edit</a>
+            <td><a href="/manage/movies/{{ $movie->id }}/edit" class="btn btn-success" style="float:left">Edit</a>
                 <form action="/manage/movies/{{ $movie->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger ml-1">Delete</button>
                 </form>
             </td>
         </tr>

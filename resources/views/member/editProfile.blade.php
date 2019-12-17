@@ -8,68 +8,67 @@
     <form action="/profile" method="post" enctype="multipart/form-data">
         @method('put')
         @csrf
-        <table id = "update-form">
-            <tr>
-                <td>Fullname </td>
-                <td><input type="text" name="name" value = "{{$member->name}}" "></td>
-                <td>{{$errors->first('name')}}</td>
-            </tr>
-            <tr>
-                <td>Email </td>
-                <td><input type="email" name="email" value="{{ $member->email }}"></td>
-                <td>{{$errors->first('email')}}</td>
-            </tr>
-            <tr>
-                <td>
-                    Role
-                </td>
-                <td>
-                    <select name="role" id="role">
-                        <option value="" selected disabled hidden>Choose</option>
-                        <option value="Administrator">Administrator</option>
-                        <option value="Member">Member</option>
+        <div class="container w-50">
+            <div class="row justify-content-center">
+                <div class="col-md-12 form-group">
+                    <label>Fullname </label>
+                    <input class = "form-control" type="text" name="name" value="{{$member->name}}" >
+                    <div class="invalid-feedback d-block">{{$errors->first('name')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Email</label>
+                    <input class = "form-control" type="email" name="email" value="{{$member->email}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('email')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Role</label>
+                    <select name="role" id="role" class="custom-select">
+                        <option value="Administrator" {{$member->role == "Administrator" ? 'selected' : ''}}>Administrator</option>
+                        <option value="Member" {{$member->role == "Member" ? 'selected' : ''}}>Member</option>
                     </select>
-                </td>
-                <td>{{$errors->first('role')}}</td>
-            </tr>
-            <tr>
-                <td>Password </td>
-                <td><input type="password" name="password"></td>
-                <td>{{$errors->first('password')}}</td>
-            </tr>
-            <tr>
-                <td>Confirm Password </td>
-                <td><input type="password" name="password_confirmation" ></td>
-                <td>{{$errors->first('password_confirmation')}}</td>
-            </tr>
-            <tr>
-                <td>Gender </td>
-                <td><input type="radio" name="gender" value="Male"  > Male
-                    <input type="radio" name="gender" value="Female" > Female
-                </td>
-                <td>{{$errors->first('gender')}}</td>
-            </tr>
-            <tr>
-                <td>Address </td>
-                <td><textarea name="address" cols="30" rows="10" >{{ $member->address }}</textarea>
-                </td>
-                <td>{{$errors->first('address')}}</td>
-            </tr>
-            <tr>
-                <td>Date of Birth </td>
-                <td><input type="date" name="birthday" value="{{ $member->birthday }}">
-                </td>
-                <td>{{$errors->first('birthday')}}</td>
-            </tr>
-            <tr>
-                <td>Profile Picture</td>
-                <td><img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt=""></td>
-                <td><input type="file" name="profile_picture"></td>
-                <td>{{$errors->first('profile_picture')}}</td>
-            </tr>
-        </table>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Password</label>
+                    <input class = "form-control" type="password" name="password" value="{{old('password')}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('password')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Confirm Password</label>
+                    <input class = "form-control" type="password" name="password_confirmation">
+                    <div class="invalid-feedback d-block">{{$errors->first('password_confirmation')}}</div>
+                </div>
+                <div class="col-md-12">
+                    <label for="">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadioMale" value="Male" {{ $member->gender == "Male" ? 'checked' : '' }}>
+                        <label class="form-check-label" for="inlineRadioMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadioFemale" value="Female" {{ $member->gender == "Female" ? 'checked' : '' }} >
+                        <label class="form-check-label" for="inlineRadioFemale">Female</label>
+                    </div>
 
-        <input type="submit" value="Update">
+                    <div class="invalid-feedback d-block">{{$errors->first('gender')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="">Address</label>
+                    <textarea class="form-control" name="address" cols="30" rows="10">{{$member->address}}</textarea>
 
-    </form>
+                    <div class="invalid-feedback d-block">{{$errors->first('address')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    Date of Birth
+                    <input type="date" name="birthday" value={{$member->birthday}}>
+
+                    <div class="invalid-feedback d-block">{{$errors->first('birthday')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="">Profile Picture</label>
+                    <input class="form-control-file" type="file" name="profile_picture">
+                    <div class="invalid-feedback d-block">{{$errors->first('profile_picture')}}</div>
+                </div>
+            </div>
+         <input type="submit" class="btn btn-success" value="Update Profile">
+        </div>
+        </form>
 @endsection

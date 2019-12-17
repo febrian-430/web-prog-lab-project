@@ -7,54 +7,60 @@
 @section('content')
     <form action="/manage/members/add" method="post" enctype="multipart/form-data">
         @csrf
-        <table id = "register-form">
-            <tr>
-                <td>Fullname </td>
-                <td><input type="text" name="name" value="{{old('name')}}"></td>
-                <td>{{$errors->first('name')}}</td>
-            </tr>
-            <tr>
-                <td>Email </td>
-                <td><input type="email" name="email" value="{{old('email')}}"></td>
-                <td>{{$errors->first('email')}}</td>
-            </tr>
-            <tr>
-                <td>Password </td>
-                <td><input type="password" name="password"></td>
-                <td>{{$errors->first('password')}}</td>
-            </tr>
-            <tr>
-                <td>Confirm Password </td>
-                <td><input type="password" name="password_confirmation"></td>
-                <td>{{$errors->first('password_confirmation')}}</td>
-            </tr>
-            <tr>
-                <td>Gender </td>
-                <td><input type="radio" name="gender" value="Male"> Male
-                    <input type="radio" name="gender" value="Female"> Female
-                </td>
-                <td>{{$errors->first('gender')}}</td>
-            </tr>
-            <tr>
-                <td>Address </td>
-                <td><textarea name="address" cols="30" rows="10">{{ old('address') }}</textarea>
-                </td>
-                <td>{{$errors->first('address')}}</td>
-            </tr>
-            <tr>
-                <td>Date of Birth </td>
-                <td><input type="date" name="birthday" value="{{old('birthday')}}">
-                </td>
-                <td>{{$errors->first('birthday')}}</td>
-            </tr>
-            <tr>
-                <td>Profile Picture</td>
-                <td><input type="file" name="profile_picture"></td>
-                <td>{{$errors->first('profile_picture')}}</td>
-            </tr>
-        </table>
+        <div class="container w-50">
+            <div class="row justify-content-center">
+                <div class="col-md-12 form-group">
+                    <label>Fullname </label>
+                    <input class = "form-control" type="text" name="name" value="{{old('name')}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('name')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Email</label>
+                    <input class = "form-control" type="email" name="email" value="{{old('email')}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('email')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Password</label>
+                    <input class = "form-control" type="password" name="password" value="{{old('password')}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('password')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Confirm Password</label>
+                    <input class = "form-control" type="password" name="password_confirmation">
+                    <div class="invalid-feedback d-block">{{$errors->first('password_confirmation')}}</div>
+                </div>
+                <div class="col-md-12">
+                    <label for="">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadioMale" value="Male" {{ old('gender') == "Male" ? 'checked' : '' }}>
+                        <label class="form-check-label" for="inlineRadioMale">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadioFemale" value="Female" {{ old('gender') == "Female" ? 'checked' : '' }} >
+                        <label class="form-check-label" for="inlineRadioFemale">Female</label>
+                    </div>
 
-        <input type="submit" value="Add user">
+                    <div class="invalid-feedback d-block">{{$errors->first('gender')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="">Address</label>
+                    <textarea class="form-control" name="address" cols="30" rows="10" value="{{old('address')}}"></textarea>
 
-    </form>
+                    <div class="invalid-feedback d-block">{{$errors->first('address')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    Date of Birth
+                    <input type="date" name="birthday" value="{{ old('birthday') ? old('birthday') : '1999-01-01'}}">
+
+                    <div class="invalid-feedback d-block">{{$errors->first('birthday')}}</div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="">Profile Picture</label>
+                    <input class="form-control-file" type="file" name="profile_picture">
+                    <div class="invalid-feedback d-block">{{$errors->first('profile_picture')}}</div>
+                </div>
+            </div>
+         <input type="submit" class="btn btn-primary" value="Register">
+        </div>
+        </form>
 @endsection

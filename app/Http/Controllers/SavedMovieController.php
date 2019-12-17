@@ -100,7 +100,7 @@ class SavedMovieController extends Controller
     {
         $user = Auth::user();
         $user->movies()->detach($movie->id);
-        return view('home', [
+        return view('member.saved', [
             'movies' => Movie::paginate(10),
             'notification' => 'Unsaved movie '.$movie->title
         ]);

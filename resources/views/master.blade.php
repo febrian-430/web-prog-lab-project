@@ -86,6 +86,5 @@
 
 
     @yield('content')
-    FOOTER
 </body>
 </html>

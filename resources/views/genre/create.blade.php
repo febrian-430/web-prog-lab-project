@@ -5,24 +5,17 @@
 @endsection
 
 @section('content')
-    <form action="/manage/genres/add" method="post" enctype="multipart/form-data">
+    <form action="/manage/genres/add" method="post" enctype="application/x-www-form-urlencoded">
         @csrf
-        <table>
-            <tr>
-                <td>
-                    Genre:
-                </td>
-                <td>
-                    <input type="text" name="genre_name">
-                </td>
-                <td>
-                    {{$errors->first('genre_name')}}
-                </td>
-            </tr>
-        </table>
-        <button type="submit">Add Genre</button>
-        @isset($complete)
-            {{$complete}}
-        @endisset
+        <div class="container w-50">
+            <div class="row justify-content-center">
+                <div class="col-12 form-group">
+                    <label for="">Genre</label>
+                    <input class ="form-control" type="text" name="genre" id="genre" value = "{{old('genre')}}">
+                    <div class="invalid-feedback d-block">{{$errors->first('genre')}}</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Genre</button>
+            </div>
+        </div>
     </form>
 @endsection

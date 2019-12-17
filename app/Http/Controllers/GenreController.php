@@ -42,19 +42,15 @@ class GenreController extends Controller
     {
         //
         $validation = [
-            'genre_name' => 'required|unique:genres,name|alpha_dash'
+            'genre' => 'required|unique:genres,name|alpha_dash'
         ];
         $this->validate($request, $validation);
 
         $genre = new Genre();
-        $genre->name = $request->genre_name;
+        $genre->name = $request->genre;
         $genre->save();
 
-        return view('genre.master',
-        [
-            'notification' => 'Genre '.$genre->name. ' has been added',
-            'genres' => Self::fetchAll()
-        ]);
+        return redirect()->route('genreMaster')->with(['status' => 'Genre '.$genre->name.' has been added']);
     }
 
     /**
@@ -93,17 +89,13 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $validation = [
-            'genre_name' => 'required|unique:genres,name,'.$genre->id.'|alpha_dash'
+            'genre' => 'required|unique:genres,name,'.$genre->id.'|alpha_dash'
         ];
         $this->validate($request, $validation);
-        $prev_name = $genre->genre_name;
-        $genre->name = $request->genre_name;
+        $prev_name = $genre->name;
+        $genre->name = $request->genre;
         $genre->save();
-        return view('genre.master',
-        [
-            'notification' => 'Genre '.$prev_name. ' was updated',
-            'genres' => Self::fetchAll()
-        ]);
+        return redirect()->route('genreMaster')->with(['status' => 'Genre '.$prev_name.' has been updated to '. $genre->name]);
     }
 
     /**
@@ -118,8 +110,7 @@ class GenreController extends Controller
         Genre::destroy($genre->id);
         return redirect('/manage/genres',
         [
-            'notification' => 'Genre '.$name.' has been deleted',
-            ''
+            'status' => 'Genre '.$name.' has been deleted'
         ]);
     }
 }

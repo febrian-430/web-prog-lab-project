@@ -35,11 +35,11 @@
                 <img width="100px" height="100px" src={{"/storage/images/memberImg/".$member->profile_picture}} alt="">
             </td>
             <td>{{$member->birthday}}</td>
-            <td><a href="/manage/members/{{ $member->id }}/edit" class="btn btn-success" style="float:left">Edit</a>
+            <td><a href="/manage/members/{{ $member->id }}/edit" class="btn btn-success">Edit</a>
                 <form action="/manage/members/{{ $member->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
+                    <button type="submit" class="btn btn-danger mr-2 mt-2">Delete</button>
                 </form>
             </td>
         </tr>

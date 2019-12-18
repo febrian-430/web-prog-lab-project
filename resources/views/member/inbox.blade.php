@@ -10,22 +10,20 @@
     @else
     <div class="container mt-2">
         @foreach ($messages as $message)
-        <div class="row justify-content-around">
-            <div class="col-5">
-                <img class="float-left" height="100px" width="100px" src={{"/storage/images/memberImg/".$message->sender->profile_picture}} alt="">
-                <h4 class="ml-4"><a href="/member/{{$message->sender->id}}">{{$message->sender->name}}</a></h4>
-                <h6 class="ml-4">Posted at {{$message->created_at}}</h6>
-                <br>
-                <p>Message: {{$message->message}}</p>
-            </div>
-            <div>
+        <div class="row justify-content-around" >
+            <div class="col-8 border mt-3" style="width:2rem;">
+                <img class="float-left mr-3" style="margin-left:-0.5rem; margin-top:0.5rem" height="100px" width="100px" src={{"/storage/images/memberImg/".$message->sender->profile_picture}} alt="">
+                <h4 class="ml-4 mt-3"><a href="/member/{{$message->sender->id}}">{{$message->sender->name}}</a></h4>
                 <form action="/inbox/{{$message->id}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-danger float-right">
+                    <button type="submit" class="btn btn-danger float-right" style="margin-top: -2.1rem">
                         Remove
                     </button>
                 </form>
+                <h6 class="ml-4 mt-1">Posted at {{$message->created_at}}</h6>
+                <br>
+                <p class="mt-2">{{$message->message}}</p>
             </div>
         </div>
         @endforeach

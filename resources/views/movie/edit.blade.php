@@ -45,6 +45,6 @@
                 <div class="invalid-feedback d-block">{{$errors->first('movie_image')}}</div>
             </div>
     </table>
-    <button type="submit" class="btn btn-primary">Add movie</button>
+    <button type="submit" class="btn btn-success">Edit movie</button>
 </form>
 @endsection

@@ -24,7 +24,7 @@ class Member extends Authenticatable
     // {
     //     return 'email';
     // }
-    //
+
 
     public function hasMovieInSave(Movie $movie){
         return $this->movies->contains($movie) ? true : false;

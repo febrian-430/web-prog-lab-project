@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-12 form-group">
                 Date of Birth
-                <input type="date" name="birthday" value="{{old('birthday')}}">
+                <input type="date" name="birthday" value="{{old('birthday') ? old('birthday') : '1999-01-01'}}">
 
                 <div class="invalid-feedback d-block">{{$errors->first('birthday')}}</div>
             </div>

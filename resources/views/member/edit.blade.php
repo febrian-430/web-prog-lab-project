@@ -68,7 +68,7 @@
                     <div class="invalid-feedback d-block">{{$errors->first('profile_picture')}}</div>
                 </div>
             </div>
-         <input type="submit" class="btn btn-success" value="Update Profile">
+         <input type="submit" class="btn btn-success" value="Update Member Profile">
         </div>
         </form>
 @endsection

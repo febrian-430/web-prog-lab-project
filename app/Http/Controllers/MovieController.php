@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Storage;
 class MovieController extends Controller
 {
 
-    public function fetchAll(){
-        $movies = Movie::paginate(10);
-        return $movies;
-    }
     /**
      * Display a listing of the resource.
      *

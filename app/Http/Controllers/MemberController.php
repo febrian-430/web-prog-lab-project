@@ -32,9 +32,6 @@ class MemberController extends Controller
         return redirect()->route('home');
     }
 
-    private function fetchAll(){
-        return Member::paginate(10);
-    }
     /**
      * Display a listing of the resource.
      *

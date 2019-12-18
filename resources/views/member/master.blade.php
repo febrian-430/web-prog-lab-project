@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="col-md-13  text-center">
-    <a href="/manage/members/add" class="btn btn-primary">Add User</a>
+    <a href="/manage/members/add" class="btn btn-primary mt-2 mb-2">Add User</a>
 </div>
 
 
@@ -45,7 +45,7 @@
         </tr>
         @endforeach
     </table>
-    {{$members->links()}}
+    <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $members->links() }}</div>
 
     {{-- <script>
             $(document).ready(function(){

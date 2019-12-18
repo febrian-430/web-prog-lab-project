@@ -42,7 +42,7 @@ class GenreController extends Controller
     {
         //
         $validation = [
-            'genre' => 'required|unique:genres,name|alpha_dash'
+            'genre' => 'required|unique:genres,name|regex:/(^[A-Za-z0-9 ]+$)/'
         ];
         $this->validate($request, $validation);
 
@@ -89,7 +89,7 @@ class GenreController extends Controller
     public function update(Request $request, Genre $genre)
     {
         $validation = [
-            'genre' => 'required|unique:genres,name,'.$genre->id.'|alpha_dash'
+            'genre' => 'required|unique:genres,name,'.$genre->id.'|regex:/(^[A-Za-z0-9 ]+$)/'
         ];
         $this->validate($request, $validation);
         $prev_name = $genre->name;
@@ -108,9 +108,6 @@ class GenreController extends Controller
     {
         $name = $genre->genre_name;
         Genre::destroy($genre->id);
-        return redirect('/manage/genres',
-        [
-            'status' => 'Genre '.$name.' has been deleted'
-        ]);
+        return redirect()->route('genreMaster')->with('status' , 'Genre '.$name.' has been deleted');
     }
 }

@@ -29,7 +29,7 @@
             </div>
         </div>
         @endforeach
-    {{$messages->links()}}
+        <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $messages->links() }}</div>
     </div>
     @endif
 @endsection

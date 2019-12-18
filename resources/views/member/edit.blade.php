@@ -1,23 +1,23 @@
 @extends('master')
 
 @section('title')
-    Register
+    {{$member->name}} - Edit
 @endsection
 
 @section('content')
-    <form action="/manage/members/{{ $member->id }}" method="post" enctype="multipart/form-data">
+    <form action="/manage/members/{{$member->id}}" method="post" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="container w-50">
             <div class="row justify-content-center">
                 <div class="col-md-12 form-group">
                     <label>Fullname </label>
-                    <input class = "form-control" type="text" name="name" value="{{$member->name}}" >
+                    <input class = "form-control" type="text" name="name" value="{{ old('name') ? old('name') : $member->name}}" >
                     <div class="invalid-feedback d-block">{{$errors->first('name')}}</div>
                 </div>
                 <div class="col-md-12 form-group w-50">
                     <label for="">Email</label>
-                    <input class = "form-control" type="email" name="email" value="{{$member->email}}">
+                    <input class = "form-control" type="email" name="email" value="{{old('email') ? old('email') : $member->email}}">
                     <div class="invalid-feedback d-block">{{$errors->first('email')}}</div>
                 </div>
                 <div class="col-md-12 form-group w-50">
@@ -52,13 +52,13 @@
                 </div>
                 <div class="col-md-12 form-group">
                     <label for="">Address</label>
-                    <textarea class="form-control" name="address" cols="30" rows="10">{{$member->address}}</textarea>
+                    <textarea class="form-control" name="address" cols="30" rows="10">{{old('address') ? old('address') : $member->address}}</textarea>
 
                     <div class="invalid-feedback d-block">{{$errors->first('address')}}</div>
                 </div>
                 <div class="col-md-12 form-group">
                     Date of Birth
-                    <input type="date" name="birthday" value={{$member->birthday}}>
+                    <input type="date" name="birthday" value={{ old('birthday') ? old('birthday') : $member->birthday}}>
 
                     <div class="invalid-feedback d-block">{{$errors->first('birthday')}}</div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="invalid-feedback d-block">{{$errors->first('profile_picture')}}</div>
                 </div>
             </div>
-         <input type="submit" class="btn btn-success" value="Update">
+         <input type="submit" class="btn btn-success" value="Update Profile">
         </div>
         </form>
 @endsection

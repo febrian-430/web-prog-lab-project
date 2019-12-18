@@ -24,7 +24,7 @@ class MemberController extends Controller
             }
             return redirect()->route('home')->with('status', 'Welcome back, '. $member->name);
         }
-        return view('login')->with('notification', 'Wrong email or password');
+        return back()->with('danger', 'Wrong email or password');
     }
 
     public function logout(){
@@ -204,8 +204,7 @@ class MemberController extends Controller
         ];
         $this->validate($request, $validation);
 
-        $currentImage = $member->profile_picture;
-        unlink(storage_path('/app/public/images/memberImg/'.$currentImage));
+        unlink(storage_path('/app/public/images/memberImg/'.$member->profile_picture));
 
         $image = $request->file('profile_picture');
         $image_name = Uuid::uuid(). '.' . $image->getClientOriginalExtension();
@@ -222,17 +221,13 @@ class MemberController extends Controller
         $member->role = $request->role;
         $member->save();
 
-        $members = Self::fetchAll();
-        return view('member.master',
-        [
-            'notification' => 'Update successful',
-            'members' => $members
-        ]);
+        return redirect()->route('memberMaster')->with('status', 'Update successful');
     }
 
-    public function update_self(Request $request, Member $member)
+    public function update_self(Request $request)
     {
         //
+        $member = Auth::user();
         $validation = [
             'name' => 'required|max:100',
             'email' => 'required|email|unique:members,email,'.$member->id,
@@ -264,7 +259,7 @@ class MemberController extends Controller
         $member->role = $request->role;
         $member->save();
 
-        return redirect()->route('profile', [$member])->with('status', 'Update successful');
+        return redirect()->route('profile')->with('status', 'Update successful');
     }
 
     /**
@@ -278,9 +273,6 @@ class MemberController extends Controller
         //
         $name = $member->name;
         Member::destroy($member->id);
-        return view('member.master',
-        [
-            'notification' => 'Member '.$name.' has been deleted'
-        ]);
+        return redirect('memberMaster')->with('status', 'Member '.$name. ' has been deleted');
     }
 }

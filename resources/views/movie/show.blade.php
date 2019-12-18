@@ -64,12 +64,12 @@
                     @endif
                     <h6 style="margin-top: -10px;">Posted at {{$comment->created_at}}</h6>
                     <p>{{$comment->content}}</p>
-
-
                 </div>
             @endforeach
+            <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $comments->links() }}</div>
+
         @else
-            <div>No comment available</div>
+            <p class="text-center">No comment available</p>
         @endif
     </div>
 </div>

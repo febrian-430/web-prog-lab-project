@@ -19,7 +19,7 @@ class SavedMovieController extends Controller
     {
         //
         $user = Auth::user();
-        $saved = $user->movies;
+        $saved = $user->movies()->paginate(10);
         return view('member.saved')->with('saved', $saved);
     }
 
@@ -43,17 +43,14 @@ class SavedMovieController extends Controller
     {
         $user = Auth::user();
         $user->movies()->attach($movie->id);
-        return view('home', [
-            'movies' => Movie::paginate(10),
-            'notification' => 'Saved movie'.$movie->title
-        ]);
+        return back()->with('status', $movie->title. ' is saved');
     }
 
     public function storeFromShow(Movie $movie)
     {
         $user = Auth::user();
         $user->movies()->attach($movie->id);
-        return redirect()->route('movie', [$movie])->with('status', 'Movie saved');
+        return redirect()->route('movie', [$movie])->with('status', $movie->title. ' is saved');
     }
 
     /**
@@ -100,16 +97,7 @@ class SavedMovieController extends Controller
     {
         $user = Auth::user();
         $user->movies()->detach($movie->id);
-        return view('member.saved', [
-            'movies' => Movie::paginate(10),
-            'notification' => 'Unsaved movie '.$movie->title
-        ]);
+        return back()->with('status', $movie->title .' was unsaved');
     }
 
-    public function destroyFromShow(Movie $movie)
-    {
-        $user = Auth::user();
-        $user->movies()->detach($movie->id);
-        return redirect()->route('movie', [$movie])->with('status', 'Movie unsaved');
-    }
 }

@@ -20,8 +20,8 @@ Route::group(['prefix' => 'movie'], function () {
     Route::post('/{movie}', 'CommentController@store');
     Route::delete('/{movie}/{comment}/delete', 'CommentController@destroy');
 
-    Route::post('/{movie}/save', 'SavedMovieController@storeFromShow');
-    Route::delete('/{movie}/unsave', 'SavedMovieController@destroyFromShow');
+    Route::post('/{movie}/save', 'SavedMovieController@store');
+    Route::delete('/{movie}/unsave', 'SavedMovieController@destroy');
 });
 
 Route::group(['prefix' => 'home'], function () {
@@ -90,18 +90,22 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => 'profile'], function () {
-        Route::get('/', 'MemberController@show_self');
+        Route::get('/', 'MemberController@show_self')->name('profile');
         Route::get('/edit', 'MemberController@edit_self');
         Route::put('/', 'MemberController@update_self');
     });
+    Route::group(['middleware' => ['member']], function () {
+        Route::group(['prefix' => 'inbox'], function () {
+            Route::get('/', 'MessageController@index')->name('inbox');
+            Route::delete('/{message}', 'MessageController@destroy');
+        });
 
-
-
-
-    Route::group(['prefix' => 'inbox'], function () {
-        Route::get('/', 'MessageController@index');
-        Route::delete('/{message}', 'MessageController@destroy');
+        Route::group(['prefix' => 'saved'], function () {
+            Route::get('/', 'SavedMovieController@index')->name('saved');
+            Route::delete('/{movie}', 'SavedMovieController@destroy');
+        });
     });
+
 
     Route::group(['prefix' => 'member'], function () {
         Route::get('/{member}', 'MemberController@show')->name('member');
@@ -111,10 +115,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{member}/edit', 'MemberController@update_self');
     });
 
-    Route::group(['prefix' => 'saved'], function () {
-        Route::get('/', 'SavedMovieController@index');
-        Route::delete('/{movie}', 'SavedMovieController@destroy');
-    });
+
 });
 
 

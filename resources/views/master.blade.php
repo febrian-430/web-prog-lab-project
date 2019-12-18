@@ -25,9 +25,11 @@
                   <a class="nav-link" href="/home">Home<span class="sr-only">(current)</span></a>
                 </li>
                 @if(Auth::user())
+                    @if(Auth::user()->role == "Member")
                     <li class="nav-item">
                         <a class="nav-link" href="/inbox">Inbox</a>
                     </li>
+                    @endif
                     @if(Auth::user()->role == "Member")
                     <li class="nav-item">
                       <a class="nav-link" href="/saved">Saved Movie</a>
@@ -47,7 +49,7 @@
               </ul>
               @if(Auth::user())
               <div class="form-inline my-2 my-lg-0">
-                <label class="nav-link">{{ date('Y-m-d H:i:s') }}</a>
+                <label class="nav-link" id="datetime">{{ date('Y-m-d H:i:s') }}</label>
             </div>
               <div class="form-inline my-2 my-lg-0">
                     <a class="btn btn-outline-primary my-2 my-sm-0 m-3" href="/profile">Profile</a>
@@ -73,14 +75,16 @@
           </nav>
 
         @isset($notification)
-            <div class="alert alert-success" role="alert">{{$notification}}</div>
+            <div class="alert alert-success pb-0 mb-0" role="alert"><p class="text-center">{{$notification}}</p></div>
         @endisset
-
-    {{-- displaying status for comment, because redirect --}}
-
+        {{-- notif for redirect return --}}
         @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
+        <div class="alert alert-success pb-0 mb-0 " role="alert">
+            <p class="text-center">{{ session('status') }}</p>
+        </div>
+        @elseif (session('danger'))
+        <div class="alert alert-danger pb-0 mb-0 " role="alert">
+            <p class="text-center">{{ session('danger') }}</p>
         </div>
         @endif
 

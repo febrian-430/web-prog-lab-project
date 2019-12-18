@@ -101,9 +101,6 @@ class MessageController extends Controller
     {
         $sender = $message->sender->name;
         Message::destroy($message->id);
-        return view('member.inbox', [
-            'notification' => 'Message from '.$sender.' has been deleted',
-            'messages' => Message::where('receiver_id', Auth::user()->id)->paginate(10)
-            ]);
+        return back()->with('status', 'Message from '.$sender.' has been deleted');
     }
 }

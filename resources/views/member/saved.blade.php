@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
     @if($saved->isEmpty())
-    <div class="row">
+    <div class="mt-4">
         <p class="text-center">No saved movies</p>
     </div>
     @else
@@ -50,6 +50,7 @@
             </div>
         </div>
         @endforeach
+        <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $saved->links() }}</div>
     </div>
     @endif
     </div>

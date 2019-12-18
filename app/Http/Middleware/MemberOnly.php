@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class MemberOnly
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == "Administrator")
+        if (Auth::check() && Auth::user()->role == "Member")
         {
             return $next($request);
         }
-        return redirect()->route('home')->with('danger', 'Only accessible for administrator');
+        return redirect()->route('home')->with('danger', 'Only accessible for member');
     }
 }

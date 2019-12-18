@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-12 form-group">
                 <label for="title">Title</label>
-                <input class="form-control" type="text" name="title" id="title" value="{{$movie->title}}">
+                <input class="form-control" type="text" name="title" id="title" value="{{ old('title') ? old('title') : $movie->title}}">
                 <div class="invalid-feedback d-block">{{$errors->first('title')}}</div>
             </div>
 
@@ -29,13 +29,13 @@
 
             <div class="col-12 form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{$movie->description}}</textarea>
+                <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description') ? old('description') : $movie->description}}</textarea>
                 <div class="invalid-feedback d-block">{{$errors->first('description')}}</div>
             </div>
 
             <div class="col-12 form-group">
                 <label for="rating">Rating</label>
-                <input class="form-control" type="text" name="rating" id="rating" value="{{$movie->rating}}">
+                <input class="form-control" type="text" name="rating" id="rating" value="{{ old('rating') ? old('rating') : $movie->rating}}">
                 <div class="invalid-feedback d-block">{{$errors->first('rating')}}</div>
             </div>
 

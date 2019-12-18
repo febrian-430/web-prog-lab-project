@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="col-md-13  text-center">
-        <a href="/manage/movies/add" class="btn btn-primary">Add movie</a>
+        <a href="/manage/movies/add" class="btn btn-primary mb-2 mt-2">Add movie</a>
     </div>
     <table class="table table-striped">
         <tr>
@@ -38,11 +38,11 @@
                 <form action="/manage/movies/{{ $movie->id }}" method="post">
                     @method('delete')
                     @csrf
-                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
+                    <button type="submit" class="btn btn-danger mr-2 mt-2">Delete</button>
                 </form>
             </td>
         </tr>
         @endforeach
     </table>
-    {{$movies->links()}}
+    <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $movies->links() }}</div>
 @endsection

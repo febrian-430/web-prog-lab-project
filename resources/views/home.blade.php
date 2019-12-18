@@ -7,12 +7,12 @@
 @section('content')
         <div class="container">
                 @if($movies->isEmpty())
-                    <p>No movies</p>
+                    <div class="text-center mt-2"><p>No result</p></div>
                 @else
 
                         <form class="input-group">
-                            <input name ="search" class="form-control" type="text" placeholder="Search by title or genre" aria-label="Search">
-                            <span><button class="btn btn-outline-success my-sm-0" type="input">Search</button></span>
+                            <input name ="search" class="form-control mt-3" type="text" placeholder="Search by title or genre" aria-label="Search">
+                            <span class="mt-3"><button class="btn btn-outline-success my-sm-0" type="input">Search</button></span>
                         </form>
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
@@ -53,7 +53,7 @@
                                 </div>
                               </div>
                         @endforeach
-                        {{$movies->links()}}
+                        <div class = "col-12" style="display:flex; flex-direction:row; justify-content: center; margin-top:25px;">{{ $movies->links() }}</div>
                         </div>
                     </div>
                 @endif

@@ -8,6 +8,7 @@ use App\Movie;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -26,7 +27,7 @@ class MovieController extends Controller
     public function index()
     {
         //
-        $movies = Movie::paginate(10);
+        $movies = Self::fetchAll();
 
         return view('movie.master')->with('movies', $movies);
     }
@@ -75,12 +76,8 @@ class MovieController extends Controller
             'genre_id' => $request->genre,
             'poster_id' => Auth::user()->id,
         ]);
-        $movies = Self::fetchAll();
-        return view('movie.master',
-            [
-                'notification' => 'Successfully added '.$movie->title,
-                'movies' => $movies
-            ]);
+        return redirect()->route('movieMaster')->with('notification', 'Successfully added '.$movie->title);
+
     }
 
     /**
@@ -91,12 +88,8 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        $comments = Comment::where('movie_id', $movie->id)->get();
-        return view('movie.show', [
-            'movie' => $movie,
-            'comments' => $comments
-        ]);
-        //
+        $comments = Comment::where('movie_id', $movie->id)->paginate(10);
+        return view('movie.show')->with(['movie' => $movie,'comments' => $comments]);
     }
 
     /**
@@ -109,7 +102,7 @@ class MovieController extends Controller
     {
         //
         $genres = Genre::all();
-        return view('movie.edit')->with('movie', $movie)->with('genres', $genres);
+        return view('movie.edit')->with(['movie' => $movie, 'genres'=> $genres]);
     }
 
     /**
@@ -132,9 +125,7 @@ class MovieController extends Controller
         ];
 
         $this->validate($request, $validation);
-        $currentImage = $movie->movie_image;
-
-        Storage::delete($currentImage);
+        unlink(storage_path('/app/public/images/movieImg/'.$movie->movie_image));
 
         $image = $request->file('movie_image');
         $image_name = Uuid::uuid(). '.' . $image->getClientOriginalExtension();
@@ -148,13 +139,7 @@ class MovieController extends Controller
         $movie->genre_id =  $request->genre;
         $movie->poster_id =  Auth::user()->id;
         $movie->save();
-
-        $movies = Self::fetchAll();
-        return view('movie.master',
-            [
-                'notification' => 'Successfully updated '.$movie->title,
-                'movies' => $movies
-            ]);
+        return redirect()->route('movieMaster')->with('status', 'Movie '.$movie->title. ' has been updated');
     }
 
     /**
@@ -166,12 +151,9 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
-        $temp = $movie;
+        $title = $movie->title;
         Movie::destroy($movie->id);
-        return view('movie.master')->with(
-            ['notification' => $temp->title.' has been deleted',
-            'movies' => Self::fetchAll()
-        ]);
+        return redirect()->route('movieMaster')->with('status' , 'Movie '. $title.' has been deleted');
     }
 
 

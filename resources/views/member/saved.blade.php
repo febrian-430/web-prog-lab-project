@@ -21,12 +21,12 @@
                         <a href="/movie/{{$movie->id}}">{{$movie->title}}</a>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{$movie->genre->name}}</h6>
-                    <div>
+                    <div style="display:flex; align-items:center; flex-wrap:wrap;">
                         <img style="float:left" width=18px height=18px src={{"/storage/images/star.png"}} alt="">
                         <p class="card-text">{{$movie->rating}}</p>
                     </div>
                     <br>
-                    <p class="card-text">{{$movie->description}}</p>
+                    <p class="card-text mt-2 mb-2">{{$movie->description}}</p>
 
                     @if(Auth::check() && Auth::user()->role == 'Member')
                        @if(! Auth::user()->hasMovieInSave($movie))

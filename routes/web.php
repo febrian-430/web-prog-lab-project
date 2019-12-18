@@ -15,6 +15,20 @@ use App\Http\Controllers\SavedMovieController;
 
 Route::get('/', 'HomeController@index');
 
+Route::group(['prefix' => 'movie'], function () {
+    Route::get('/{movie}', 'MovieController@show')->name('movie');
+    Route::post('/{movie}', 'CommentController@store');
+    Route::delete('/{movie}/{comment}/delete', 'CommentController@destroy');
+
+    Route::post('/{movie}/save', 'SavedMovieController@storeFromShow');
+    Route::delete('/{movie}/unsave', 'SavedMovieController@destroyFromShow');
+});
+
+Route::group(['prefix' => 'home'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/{movie}', 'SavedMovieController@store');
+    Route::delete('/{movie}', 'SavedMovieController@destroy');
+});
 
 
 
@@ -81,11 +95,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/', 'MemberController@update_self');
     });
 
-    Route::group(['prefix' => 'home'], function () {
-        Route::get('/', 'HomeController@index')->name('home');
-        Route::post('/{movie}', 'SavedMovieController@store');
-        Route::delete('/{movie}', 'SavedMovieController@destroy');
-    });
+
 
 
     Route::group(['prefix' => 'inbox'], function () {
@@ -99,15 +109,6 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/{member}/edit', 'MemberController@edit_self');
         Route::post('/{member}/edit', 'MemberController@update_self');
-    });
-
-    Route::group(['prefix' => 'movie'], function () {
-        Route::get('/{movie}', 'MovieController@show')->name('movie');
-        Route::post('/{movie}', 'CommentController@store');
-        Route::delete('/{movie}/{comment}/delete', 'CommentController@destroy');
-
-        Route::post('/{movie}/save', 'SavedMovieController@storeFromShow');
-        Route::delete('/{movie}/unsave', 'SavedMovieController@destroyFromShow');
     });
 
     Route::group(['prefix' => 'saved'], function () {

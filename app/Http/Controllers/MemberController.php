@@ -40,7 +40,7 @@ class MemberController extends Controller
     public function index()
     {
         //
-        $members = Self::fetchAll();
+        $members = Member::paginate(10);
         return view('member.master')->with('members', $members);
     }
 

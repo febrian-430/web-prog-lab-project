@@ -23,7 +23,7 @@ class MovieController extends Controller
     public function index()
     {
         //
-        $movies = Self::fetchAll();
+        $movies = Movie::paginate(10);
 
         return view('movie.master')->with('movies', $movies);
     }

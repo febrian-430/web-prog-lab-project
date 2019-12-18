@@ -19,6 +19,11 @@ class Member extends Authenticatable
     protected $hidden = [
         'password', 'remember_token'
     ];
+
+    // public function getRouteKeyName()
+    // {
+    //     return 'email';
+    // }
     //
 
     public function hasMovieInSave(Movie $movie){

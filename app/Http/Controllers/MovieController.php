@@ -73,7 +73,6 @@ class MovieController extends Controller
             'poster_id' => Auth::user()->id,
         ]);
         return redirect()->route('movieMaster')->with('notification', 'Successfully added '.$movie->title);
-
     }
 
     /**

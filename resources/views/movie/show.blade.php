@@ -7,7 +7,7 @@
 @section('content')
     <div class = "container">
     <div class="row mt-4">
-        <img class="float-left col-6"  src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
+        <img class="float-left col-6" height="600" width="400" src={{"/storage/images/movieImg/".$movie->movie_image}} alt="">
         <div class="col-6">
             <h2 class="w-50 card-title">{{$movie->title}}</h2>
             @if(Auth::check() && Auth::user()->role == "Member")
@@ -16,12 +16,12 @@
                     <form action="/movie/{{$movie->id}}/unsave" method="post">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="float-right btn btn-danger">Unsave</button>
+                        <button type="submit" class="float-right btn btn-danger" style="margin-top:-3rem">Unsave</button>
                     </form>
                 @else
                     <form action="/movie/{{$movie->id}}/save" method="post">
                         @csrf
-                        <button type="submit" class="float-right btn btn-primary">Save</button>
+                        <button type="submit" class="float-right btn btn-primary" style="margin-top:-3rem">Save</button>
                     </form>
                 @endif
             </div>
@@ -29,7 +29,7 @@
             <h6 class="card-subtitle text-muted pt-0">{{$movie->genre->name}}</h6>
             <div class="card-text mt-2"style="display:flex; align-items:center; flex-wrap:wrap;">
                 <img style="float:left" width=18px height=18px src={{"/storage/images/star.png"}} alt="">
-                <p class="card-text">{{$movie->rating}}</p>
+                <p class="card-text">  {{$movie->rating}}</p>
             </div>
             <p class="card-text mt-2">{{$movie->description}}</p>
             <p>Posted at {{$movie->created_at}}</p>
@@ -51,7 +51,7 @@
         @if(! $comments->isEmpty())
             @foreach ($comments as $comment)
                 <div class = "col-12">
-                    <div class="float-left mr-4"><img class="rounded border" width="55" height = "55" src={{"/storage/images/memberImg/".$comment->postedBy->profile_picture}} alt=""></div>
+                    <div class="float-left mr-4"><img class="rounded border" width="55px" height = "55px" src={{"/storage/images/memberImg/".$comment->postedBy->profile_picture}} alt=""></div>
                     <h4><a href="/member/{{$comment->postedBy->id}}">{{$comment->postedBy->name}}</a></p>
                     @if(Auth::check() && $comment->postedBy->id == Auth::user()->id)
                     <div style="margin-top:-15px">

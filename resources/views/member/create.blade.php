@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Register
+    Add User
 @endsection
 
 @section('content')
@@ -18,6 +18,13 @@
                     <label for="">Email</label>
                     <input class = "form-control" type="email" name="email" value="{{old('email')}}">
                     <div class="invalid-feedback d-block">{{$errors->first('email')}}</div>
+                </div>
+                <div class="col-md-12 form-group w-50">
+                    <label for="">Role</label>
+                    <select name="role" id="role" class="custom-select">
+                        <option value="Administrator" {{old('role') == "Administrator" ? 'selected' : ''}}>Administrator</option>
+                        <option value="Member" {{old('role') == "Member" ? 'selected' : ''}}>Member</option>
+                    </select>
                 </div>
                 <div class="col-md-12 form-group w-50">
                     <label for="">Password</label>
